@@ -1,0 +1,11 @@
+0.38 (Jan , 2017)
+	* Added routines to evaluate density, cumulative distribution, quantile functions
+		and generation of random deviates from the univariate Laplace distribution
+	* Added S3 logLik, predict, plot and simulate methods for lad objects (contributed
+		by Tymoteusz Wolodzko)
+	* Internal code for computation of log-likelihood function was corrected
+	* Changes to NAMESPACE file to compliance with guidelines described in
+		'Writing R Extensions' Section 1.5
+
+0.3 (Apr 13, 2015)
+	* Initial release of the L1pack on CRAN

@@ -28,9 +28,10 @@ function(formula, data, method = c("BR", "EM"), subset, na.action,
   ctrl  <- c(ctrl, choice, 0)
 
   ## initial estimates
-  fit <- lsfit(x, y, intercept = FALSE)[1:2]
+  fit <- lsfit(x, y, intercept = FALSE)
   res <- fit$residuals
   cf <- fit$coefficients
+  R <- qr.R(fit$qr)
 
   ## Call fitter
   now <- proc.time()
@@ -56,6 +57,7 @@ function(formula, data, method = c("BR", "EM"), subset, na.action,
               minimum = fit$sad,
               fitted.values = fit$fitted,
               residuals = fit$resid,
+              R = R,
               numIter = fit$control[4],
               control = fit$control,
               weights = fit$weights,
@@ -69,6 +71,7 @@ function(formula, data, method = c("BR", "EM"), subset, na.action,
   names(out$residuals) <- ynames
   names(out$fitted) <- ynames
   names(out$weights) <- ynames
+  dimnames(out$R) <- list(xnames, xnames)
   out$na.action <- attr(mf, "na.action")
   out$contrasts <- attr(x, "contrasts")
   out$xlevels <- .getXlevels(Terms, mf)
@@ -249,4 +252,57 @@ simulate.lad <- function(object, nsim = 1, seed = NULL, ...)
     row.names(ans) <- nm
   attr(ans, "seed") <- RNGstate
   ans
+}
+
+summary.lad <-
+function (object, ...)
+{
+  z <- object
+  p <- z$dims[2]
+  storage.mode(z$R) <- "double"
+  o <- .C("lad_acov",
+          R = z$R,
+          dims = as.integer(z$dims),
+          acov = double(p^2))
+  cov.unscaled <- matrix(o$acov, ncol = p)
+  se <- sqrt(0.5 * diag(cov.unscaled))
+  est <- z$coefficients
+  zval <- est / se
+  ans <- z[c("call", "terms")]
+  ans$dims <- z$dims
+  ans$logLik <- z$logLik
+  ans$scale <- z$scale
+  ans$residuals <- z$residuals
+  ans$coefficients <- cbind(est, se, zval, 2 * pnorm(abs(zval), lower.tail = FALSE))
+  dimnames(ans$coefficients) <- list(names(z$coefficients),
+        c("Estimate", "Std.Error", "Z value", "p-value"))
+  class(ans) <- "summary.lad"
+  ans
+}
+
+print.summary.lad <-
+function(x, digits = 4, ...)
+{
+  cat("Call:\n")
+  dput(x$call, control = NULL)
+  resid <- x$residuals
+  nobs <- x$dims[1]
+  p <- x$dims[2]
+  rdf <- nobs - p
+  if (rdf > 5) {
+    cat("\nResiduals:\n")
+		rq <- quantile(resid)
+		names(rq) <- c("Min", "1Q", "Median", "3Q", "Max")
+		print(rq, digits = digits, ...)
+	}
+	else if(rdf > 0) {
+	 cat("\nResiduals:\n")
+	 print(resid, digits = digits, ...)
+  }
+  cat("\nCoefficients:\n ")
+  print(format(round(x$coef, digits = digits)), quote = F, ...)
+  cat("\nDegrees of freedom:", nobs, "total;", rdf, "residual")
+  cat("\nScale estimate:", format(x$scale))
+  cat("\nLog-likelihood:", format(x$logLik), "on", p + 1, "degrees of freedom\n")
+  invisible(x)
 }

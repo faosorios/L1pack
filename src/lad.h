@@ -36,6 +36,7 @@ typedef struct LAD_struct {
 /* L1 estimation for linear models (to be called by R) */
 extern void F77_NAME(l1)(int *, int *, int *, int *, double *, double *, double *, double *, double *, int *);
 extern void lad(double *, double *, int *, double *, double *, double *, double *, double *, double *, double *, double *);
+extern void lad_acov(double *, int *, double *);
 
 /* routines for estimation in linear models */
 LAD lad_init(double *, double *, int *, double *, double *, double *, double *, double *, double *, double *);

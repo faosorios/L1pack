@@ -1,12 +1,10 @@
 #include "lad.h"
 
-/* declaration of static functions */
-
+/* static functions.. */
 DIMS dims(int *);
 void dims_free(DIMS);
 double do_weight(double, double);
-
-/* static functions */
+/* ..end declarations */
 
 DIMS
 dims(int *pdims)
@@ -37,8 +35,6 @@ do_weight(double residual, double sad)
         ans = eps / fabs(residual);
     return ans;
 }
-
-/* end static */
 
 void
 lad(double *y, double *x, int *pdims, double *coef, double *scale, double *fitted,
@@ -263,4 +259,20 @@ l1_fit(double *y, double *x, DIMS dd, double *coef, double *scale, double *sad,
         error("L1FIT matrix not of full rank, apparent rank %d", rank);
 
     return iter;
+}
+
+void
+lad_acov(double *R, int *pdims, double *acov)
+{ /* unscaled asymptotic covariance matrix */
+  int info = 0, job = 1;
+  DIMS dd;
+
+  /* unscaled asymptotic covariance */
+  dd = dims(pdims);
+  invert_triangular(job, R, dd->p, dd->p);
+  if (info)
+    error("DTRTRI in lad_acov gave code %d", info);
+  outerprod(R, dd->p, dd->p, dd->p, R, dd->p, dd->p, dd->p, acov);
+
+  dims_free(dd);
 }

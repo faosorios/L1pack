@@ -6,6 +6,7 @@
 static const R_CMethodDef CEntries[]  = {
     {"dlaplace",        (DL_FUNC) &dlaplace,        8},
     {"lad",             (DL_FUNC) &lad,             11},
+    {"lad_acov",        (DL_FUNC) &lad_acov,        3},
     {"plaplace",        (DL_FUNC) &plaplace,        9},
     {"qlaplace",        (DL_FUNC) &qlaplace,        9},
     {"rand_laplace",    (DL_FUNC) &rand_laplace,    4},

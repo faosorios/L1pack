@@ -1,14 +1,16 @@
 Package: L1pack
-Version: 0.38
-Date: 2017-02-19
+Version: 0.38.1
+Date: 2017-08-15
 Title: Routines for L1 Estimation
+Authors@R: c(person("Felipe", "Osorio", role = c("aut", "cre"), email = "felipe.osorios@usm.cl"),
+             person("Tymoteusz", "Wolodzko", role = "aut"))
 Description: L1 estimation for linear regression, density, distribution function,
     quantile function and random number generation for univariate and multivariate
     Laplace distribution.
-Author: Felipe Osorio [aut, cre] and Tymoteusz Wolodzko [aut]
-Maintainer: Felipe Osorio <felipe.osorio@ucv.cl>
+Author: Felipe Osorio [aut, cre], Tymoteusz Wolodzko [aut]
+Maintainer: Felipe Osorio <felipe.osorios@usm.cl>
 Imports: stats, grDevices, graphics
 Suggests: heavy
-License: GPL (>= 2)
-URL: http://www.ies.ucv.cl/l1pack/
+License: GPL (>= 2.0)
+URL: http://l1pack.mat.utfsm.cl
 LazyLoad: yes

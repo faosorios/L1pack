@@ -9,8 +9,8 @@ importFrom("graphics",
 
 importFrom("stats", # some S3 generics for which we define methods
            .checkMFClasses, .getXlevels, coef, delete.response, fitted, lsfit,
-           model.frame, model.matrix, model.response, na.pass, qnorm, qqnorm,
-           residuals, runif, simulate, terms)
+           model.frame, model.matrix, model.response, na.pass, pnorm, qnorm,
+           qqnorm, quantile, residuals, runif, simulate, terms)
 
 ## Our Exports:
 export(dlaplace, l1fit, l1pack.control, lad, plaplace, qlaplace, rlaplace,
@@ -26,5 +26,7 @@ S3method(logLik, lad)
 S3method(plot, lad)
 S3method(predict, lad)
 S3method(print, lad)
+S3method(print, summary.lad)
 S3method(residuals, lad)
 S3method(simulate, lad)
+S3method(summary, lad)

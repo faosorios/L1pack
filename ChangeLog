@@ -1,4 +1,8 @@
-0.38 (Jan , 2017)
+0.38.1 (Aug 15, 2017)
+	* Added summary method for lad objects
+	* Authors field at DESCRIPTION file was corrected
+
+0.38 (Feb 20, 2017)
 	* Added routines to evaluate density, cumulative distribution, quantile functions
 		and generation of random deviates from the univariate Laplace distribution
 	* Added S3 logLik, predict, plot and simulate methods for lad objects (contributed

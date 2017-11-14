@@ -1,10 +1,9 @@
 #include "random.h"
 
-/* declaration of static functions */
-
-/* functions to deal with dims objects */
+/* static functions.. */
 static DIMS dims(int *);
 static void dims_free(DIMS);
+/* ..end declarations */
 
 /* 'dims' functions */
 

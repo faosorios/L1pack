@@ -1,13 +1,10 @@
 #include "distn.h"
 
-/* static functions.. */
-
 /* dpqr-functions for Laplace distribution */
 static double pdf_laplace(double, double, double, int);
 static double cdf_laplace(double, double, double, int, int);
 static double quantile_laplace(double, double, double, int, int);
 static double rand_laplace(double, double);
-
 /* ..end declarations */
 
 static double pdf_laplace(double x, double location, double scale, int log_pdf)

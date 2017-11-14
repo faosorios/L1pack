@@ -254,6 +254,29 @@ simulate.lad <- function(object, nsim = 1, seed = NULL, ...)
   ans
 }
 
+confint.lad <- function(object, parm, level = 0.95, ...)
+{
+  cf <- coef(object)
+  pnames <- names(cf)
+  if (missing(parm)) parm <- seq(along = pnames)
+  else if(is.character(parm)) parm <- match(parm, pnames, nomatch = 0)
+  a <- (1 - level) / 2
+  a <- c(a, 1-a)
+  pct <- paste(round(100 * a, 1), "%")
+  ci <- array(NA, dim = c(length(parm), 2),
+              dimnames = list(pnames[parm], pct))
+  se <- sqrt(diag(vcov(object)))[parm]
+  qz <- qnorm(a)
+  ci[] <- cf[parm] + se %o% qz
+  ci
+}
+
+vcov.lad <- function(object, ...)
+{
+  so <- summary.lad(object)
+  2. * so$scale^2 * so$cov.unscaled
+}
+
 summary.lad <-
 function (object, ...)
 {
@@ -265,7 +288,7 @@ function (object, ...)
           dims = as.integer(z$dims),
           acov = double(p^2))
   cov.unscaled <- matrix(o$acov, ncol = p)
-  se <- sqrt(0.5 * diag(cov.unscaled))
+  se <- z$scale * sqrt(2. * diag(cov.unscaled))
   est <- z$coefficients
   zval <- est / se
   ans <- z[c("call", "terms")]
@@ -276,6 +299,7 @@ function (object, ...)
   ans$coefficients <- cbind(est, se, zval, 2 * pnorm(abs(zval), lower.tail = FALSE))
   dimnames(ans$coefficients) <- list(names(z$coefficients),
         c("Estimate", "Std.Error", "Z value", "p-value"))
+  ans$cov.unscaled <- cov.unscaled
   class(ans) <- "summary.lad"
   ans
 }

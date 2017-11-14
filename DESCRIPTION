@@ -1,6 +1,6 @@
 Package: L1pack
-Version: 0.38.1
-Date: 2017-08-15
+Version: 0.38.19
+Date: 2017-11-14
 Title: Routines for L1 Estimation
 Authors@R: c(person("Felipe", "Osorio", role = c("aut", "cre"), email = "felipe.osorios@usm.cl"),
              person("Tymoteusz", "Wolodzko", role = "aut"))

@@ -1,3 +1,7 @@
+0.38.19 (Nov 14, 2017)
+	* Added confint and vcov methods for lad objects
+	* Corrected error in computation of the standard error for the coefficients
+
 0.38.1 (Aug 15, 2017)
 	* Added summary method for lad objects
 	* Authors field at DESCRIPTION file was corrected

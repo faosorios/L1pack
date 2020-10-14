@@ -1,12 +1,17 @@
+/* ID: base.h, last updated 2020-10-08, F.Osorio */
+
 #ifndef L1PACK_BASE_H
 #define L1PACK_BASE_H
 
 #include <R.h>
 #include <Rmath.h>
+#include <Rinternals.h>
+#include <R_ext/Print.h>
 #include <R_ext/BLAS.h>
-#include <R_ext/Linpack.h>
 #include <R_ext/Lapack.h>
+#include <R_ext/Linpack.h>
 #include <R_ext/Applic.h>
+#include <R_ext/Utils.h>
 
 /* some definitions */
 #define NULLP    (void *) 0
@@ -18,16 +23,10 @@
 
 /* dims structure */
 typedef struct DIMS_struct {
-    int
-        N,      /* total number of cases */
-        n,      /* number of observations */
-        p;      /* number of coefficients */
+  int
+    N,    /* total number of cases */
+    n,    /* number of observations */
+    p;    /* number of coefficients */
 } DIMS_struct, *DIMS;
-
-/* QR structure */
-typedef struct QR_struct {
-    double *mat, *qraux;
-    int ldmat, nrow, ncol;
-} QR_struct, *QRStruct;
 
 #endif /* L1PACK_BASE_H */

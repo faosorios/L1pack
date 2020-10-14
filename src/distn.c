@@ -1,4 +1,7 @@
-#include "distn.h"
+/* ID: distn.c, last updated 2020-10-08, F.Osorio */
+
+#include "base.h"
+#include "lad.h"
 
 /* dpqr-functions for Laplace distribution */
 static double pdf_laplace(double, double, double, int);
@@ -18,7 +21,7 @@ static double pdf_laplace(double x, double location, double scale, int log_pdf)
     M_SQRT1_2 * exp(-M_SQRT2 * y) / scale);
 }
 
-void dlaplace(int *n, double *y, double *x, double *location, int *nloc, double *scale, int *nscale, int *give_log)
+void d_laplace(int *n, double *y, double *x, double *location, int *nloc, double *scale, int *nscale, int *give_log)
 { /* univariate Laplace random generation */
   int i, nobs = *n, na = *nloc, nb = *nscale, log_pdf = *give_log;
 
@@ -40,7 +43,7 @@ static double cdf_laplace(double x, double location, double scale, int lower, in
   }
 }
 
-void plaplace(int *n, double *y, double *x, double *location, int *nloc, double *scale, int *nscale, int *lower_tail, int *log_p)
+void p_laplace(int *n, double *y, double *x, double *location, int *nloc, double *scale, int *nscale, int *lower_tail, int *log_p)
 { /* univariate Laplace random generation */
   int i, nobs = *n, na = *nloc, nb = *nscale, lower = *lower_tail, log_cdf = *log_p;
 
@@ -74,7 +77,7 @@ static double quantile_laplace(double p, double location, double scale, int lowe
   return val;
 }
 
-void qlaplace(int *n, double *y, double *p, double *location, int *nloc, double *scale, int *nscale, int *lower_tail, int *log_p)
+void q_laplace(int *n, double *y, double *p, double *location, int *nloc, double *scale, int *nscale, int *lower_tail, int *log_p)
 { /* univariate Laplace random generation */
   int i, nobs = *n, na = *nloc, nb = *nscale, lower = *lower_tail, log_prob = *log_p;
 
@@ -86,7 +89,7 @@ static double rand_laplace(double location, double scale)
 { /* random variates from the Laplace distribution */
   double u;
 
-  u = unif_rand() - .5; /* U(-1/2,1/2) */
+  u = unif_rand() - .5; /* runif(-1/2,1/2) */
 
   if (scale == 0.)
     return location;
@@ -94,7 +97,7 @@ static double rand_laplace(double location, double scale)
     return location + M_SQRT1_2 * scale * sign(u) * log(1. - 2. * fabs(u));
 }
 
-void rlaplace(int *n, double *x, double *location, int *nloc, double *scale, int *nscale)
+void r_laplace(int *n, double *x, double *location, int *nloc, double *scale, int *nscale)
 { /* univariate Laplace random generation */
   int i, nobs = *n, na = *nloc, nb = *nscale;
 

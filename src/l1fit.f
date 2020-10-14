@@ -1,106 +1,96 @@
-      subroutine L1FIT(z, y, n, p, n2, p2, coef, resid, minimum, iter,
+* ID: l1fit_BR.f, last updated 2020-08-16, F.Osorio
+
+************************************************************************
+      subroutine l1fit(z, y, n, p, n2, p2, coef, resid, minimum, iter,
      *                 tol, rank, info, work)
 *
-*     wrapper of L1
+*     wrapper to 'l1_BR'
 *
-      integer           n, p, n2, p2, iter, rank, info
-      double precision  minimum, tol
+      integer          n, p, n2, p2, iter, rank, info
+      double precision minimum, tol
 *
-      double precision  z(n2,*), y(*), coef(*), resid(*)
-      integer           work(*)
+      double precision z(n2,*), y(*), coef(*), resid(*)
+      integer          work(*)
 *
       call L1(n, p, n2, p2, z, y, tol, coef, resid, work)
+*
       minimum = z(n+1,p+1)
       rank = int(z(n+1,p+2))
       info = int(z(n+2,p+1))
       iter = int(z(n+2,p+2))
-      
+
 *
 *     End of L1FIT
 *
       end
 
-      subroutine L1(m, n, m2, n2, a, b, toler, x, e, s)
+************************************************************************
+      subroutine l1(m, n, m2, n2, a, b, toler, x, e, s)
 *
-*  ALGORITHM 478 Collected Algorithms from ACM
-*  Comm. ACM, Vol. 17, No. 06, p. 319.
+*     ALGORITHM 478 Collected Algorithms from ACM
+*     Comm. ACM, Vol. 17, No. 06, p. 319.
 *
 *     scalar arguments
-      integer           m, n, m2, n2
-      double precision  toler
+      integer          m, n, m2, n2
+      double precision toler
 *
 *     array arguments
-      double precision  a(m2,*), b(*), x(*), e(*)
-      integer           s(*)
+      double precision a(m2,*), b(*), x(*), e(*)
+      integer          s(*)
 *
+*     Purpose:
 *
-*  Purpose
-*  =======
+*     l1_BR uses a modification of the simplex method of linear programming
+*     to calculate an L1 solution to an over-determined system of linear
+*     equations.
 *
-*  L1 uses a modification of the simplex method of linear programming
-*  to calculate an L1 solution to an over-determined system of linear
-*  equations.
+*     Arguments:
 *
-*  Arguments
-*  =========
-*
-*   m      (input) INTEGER
-*          The number of equations.
-*
-*   n      (input) INTEGER
-*          The number of unknowns (m.ge.n).
-*
-*   m2     (input) INTEGER
-*          set equal to m+2 for adjustable dimensions.
-*
-*   n2     (input) INTEGER
-*          set equal to n+2 for adjustable dimensions.
-*
-*   a      (input) DOUBLE PRECISION array, dimension (m2,n2)
-*          on entry, the coefficients of the matrix must be
-*          stored in the first m rows and n columns of a.
-*          these values are destroyed by the subroutine.
-*          on exit from the subroutine, the array a contains
-*          the following information.
-*          a(m+1,n+1) the minimum sum of the absolute values
-*                     of the residuals.
-*          a(m+1,n+2) the rank of the matrix of coefficients.
-*          a(m+2,n+1) exit code with values.
-*                     0 - optimal solution which is probably
-*                         non-unique.
-*                     1 - unique optimal solution.
-*                     2 - calculations terminated prematurely
-*                         due to rounding errors.
-*          a(m+2,n+2) number of simplex iterations performed.
-*
-*   b      (input/output) DOUBLE PRECISION array, dimension (m)
-*          on entry, b must contain the right hand side of the
-*          equations. these values are destroyed by the subroutine.
-*
-*  toler   (input) DOUBLE PRECISION
-*          a small positive tolerance. empirical evidence suggests
-*          toler=10**(-d*2/3) where d represents the number of
-*          decimal digits of accuracy avalable (see description).
-*
-*  x       (output) DOUBLE PRECISION array, dimension (n)
-*          on exit, this array contains a solution to the L1 problem.
-*
-*  e       (output) DOUBLE PRECISION array, dimension (m)
-*          on exit, this array contains the residuals in the equations.
-*
-*  s       (workspace) INTEGER array, dimension(m).
-*
-*
-*  =====================================================================
+*     m     (input) INTEGER
+*           The number of equations.
+*     n     (input) INTEGER
+*           The number of unknowns (m.ge.n).
+*     m2    (input) INTEGER
+*           set equal to m+2 for adjustable dimensions.
+*     n2    (input) INTEGER
+*           set equal to n+2 for adjustable dimensions.
+*     a     (input) DOUBLE PRECISION array, dimension (m2,n2)
+*           on entry, the coefficients of the matrix must be
+*           stored in the first m rows and n columns of a.
+*           these values are destroyed by the subroutine.
+*           on exit from the subroutine, the array a contains
+*           the following information.
+*           a(m+1,n+1) the minimum sum of the absolute values
+*                      of the residuals.
+*           a(m+1,n+2) the rank of the matrix of coefficients.
+*           a(m+2,n+1) exit code with values.
+*                      0 - optimal solution which is probably
+*                          non-unique.
+*                      1 - unique optimal solution.
+*                      2 - calculations terminated prematurely
+*                          due to rounding errors.
+*           a(m+2,n+2) number of simplex iterations performed.
+*     b     (input/output) DOUBLE PRECISION array, dimension (m)
+*           on entry, b must contain the right hand side of the
+*           equations. these values are destroyed by the subroutine.
+*     toler (input) DOUBLE PRECISION
+*           a small positive tolerance. empirical evidence suggests
+*           toler=10**(-d*2/3) where d represents the number of
+*           decimal digits of accuracy avalable (see description).
+*     x     (output) DOUBLE PRECISION array, dimension (n)
+*           on exit, this array contains a solution to the L1 problem.
+*     e     (output) DOUBLE PRECISION array, dimension (m)
+*           on exit, this array contains the residuals in the equations.
+*     s     (workspace) INTEGER array, dimension(m).
 *
 *     parameters
-      double precision  big
-      parameter         (big = 1.d75)
+      double precision big
+      parameter       (big = 1.d75)
 *
 *     local scalars
-      double precision sum
-      integer out
-      logical stage, test
+      double precision d, sum, pivot
+      integer          i, j, k, kount, kr, kl, in, out
+      logical          stage, test
 *
 *     intrinsic functions
       double precision min, max
@@ -139,6 +129,8 @@
 *     determine the vector to enter the basis
 *
       stage = .true.
+      in = 0
+      out = 0
       kount = 0
       kr = 1
       kl = 1
@@ -279,7 +271,7 @@
   340 continue
       a(m2,n1) = 1.d0
   350 do 380 i=1,m
-        k = a(i,n2)
+        k = int(a(i,n2))
         d = a(i,n1)
         if (k.gt.0) go to 360
         k = -k

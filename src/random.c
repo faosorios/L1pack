@@ -1,4 +1,8 @@
-#include "random.h"
+/* ID: random.c, last updated 2020-10-08, F.Osorio */
+
+#include "base.h"
+#include "interface.h"
+#include "lad.h"
 
 /* static functions.. */
 static DIMS dims(int *);
@@ -31,21 +35,23 @@ rand_laplace(double *y, int *pdims, double *center, double *Scatter)
 { /* multivariate Laplace random generation */
   DIMS dm;
   char *side = "L", *uplo = "U", *trans = "T", *diag = "N";
-  double one = 1.;
-  int i, inc = 1, info = 0, job = 1;
+  int info = 0, job = 1;
 
   dm = dims(pdims);
   GetRNGstate();
+
   chol_decomp(Scatter, dm->p, dm->p, job, &info);
   if (info)
-    error("DPOTRF in cholesky decomposition gave code %d", info);
+    error("DPOTRF in rand_laplace gave error code %d", info);
+
   rand_spherical_laplace(y, dm->n, dm->p);
-  F77_CALL(dtrmm)(side, uplo, trans, diag, &(dm->p), &(dm->n), &one, Scatter,
-    &(dm->p), y, &(dm->p));
-  for (i = 0; i < dm->n; i++) {
-    F77_CALL(daxpy)(&(dm->p), &one, center, &inc, y, &inc);
+  mult_triangular_mat(1.0, Scatter, dm->p, dm->p, dm->n, side, uplo, trans, diag, y, dm->p);
+
+  for (int i = 0; i < dm->n; i++) {
+    ax_plus_y(1.0, center, 1, y, 1, dm->p);
     y += dm->p;
   }
+
   PutRNGstate();
   dims_free(dm);
 }
@@ -53,14 +59,13 @@ rand_laplace(double *y, int *pdims, double *center, double *Scatter)
 void
 rand_spherical_laplace(double *y, int n, int p)
 { /* standard Laplace exponential variates */
-  int i, j, one = 1;
   double radial;
 
-  for (i = 0; i < n; i++) {
-    for (j = 0; j < p; j++)
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < p; j++)
       y[j] = norm_rand();
     radial = sqrt(exp_rand());
-    F77_CALL(dscal)(&p, &radial, y, &one);
+    scale(y, p, 1, radial);
     y += p;
   }
 }

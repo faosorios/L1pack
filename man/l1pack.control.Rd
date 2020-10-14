@@ -17,10 +17,9 @@ l1pack.control(maxIter = 2000, tolerance = 1e-9)
 \value{
   A list of control arguments to be used in a call to \code{\link{lad}}.
 
-  A call to \code{l1pack.control} can be used directly in the control argument 
-  of a call to \code{\link{lad}}. 
+  A call to \code{l1pack.control} can be used directly in the control argument
+  of a call to \code{\link{lad}}.
 }
-\author{Felipe Osorio.}
 \examples{
 ctrl <- l1pack.control(maxIter = 50, tol = 1e-07)
 lad(stack.loss ~ ., data = stackloss, control = ctrl)

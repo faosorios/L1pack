@@ -3,10 +3,10 @@ citHeader("To cite package L1pack in publications use:")
 citEntry(entry="Manual",
   title = "Routines for L1 estimation",
   author = personList(as.person("F. Osorio"), as.person("T. Wolodzko")),
-  year = "2017",
-  note = "R package version 0.38.19",
+  year = "2020",
+  note = "R package version 0.38.196",
   url = "http://l1pack.mat.utfsm.cl",
   textVersion =
-  paste("Osorio, F., Wolodzko, T. (2017). Routines for L1 estimation.",
-  "R package version 0.38.19", "URL: http://l1pack.mat.utfsm.cl")
+  paste("Osorio, F., Wolodzko, T. (2020). Routines for L1 estimation.",
+  "R package version 0.38.196.", "URL: http://l1pack.mat.utfsm.cl")
 )

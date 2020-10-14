@@ -1,5 +1,8 @@
 useDynLib(L1pack, .registration = TRUE)
 
+## required package
+import(fastmatrix)
+
 ## base packages
 importFrom("grDevices",
            dev.interactive)

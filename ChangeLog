@@ -1,3 +1,8 @@
+0.38.196 (Oct 15, 2020)
+	* C code to obtain certain matrix computations and decompositions is now provided
+	  by 'fastmatrix' R package.
+	* Minor clean-ups in C and R.
+
 0.38.19 (Nov 14, 2017)
 	* Added confint and vcov methods for lad objects
 	* Corrected error in computation of the standard error for the coefficients

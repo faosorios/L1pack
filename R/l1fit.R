@@ -1,3 +1,5 @@
+## ID: l1fit.R, last updated 2020-10-09, F.Osorio and T.Wolodzko
+
 l1fit <-
 function(x, y, intercept = TRUE, tolerance = 1e-07, print.it = TRUE)
 {

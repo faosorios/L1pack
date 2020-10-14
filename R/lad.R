@@ -1,3 +1,5 @@
+## ID: lad.R, last updated 2020-10-09, F.Osorio and T.Wolodzko
+
 lad <-
 function(formula, data, method = c("BR", "EM"), subset, na.action,
   control = NULL, model = TRUE, x = FALSE, y = FALSE, contrasts = NULL)
@@ -35,7 +37,7 @@ function(formula, data, method = c("BR", "EM"), subset, na.action,
 
   ## Call fitter
   now <- proc.time()
-  fit <- .C("lad",
+  fit <- .C("lad_fitter",
             y = as.double(y),
             x = as.double(x),
             dims = as.integer(dx),
@@ -79,9 +81,9 @@ function(formula, data, method = c("BR", "EM"), subset, na.action,
   if (model)
     out$model <- mf
   if (ret.y)
-    out$y <- y
+    out$y <- fit$y #y
   if (ret.x)
-    out$x <- x
+    out$x <- fit$x #x
   class(out) <- "lad"
   out
 }
@@ -273,8 +275,8 @@ confint.lad <- function(object, parm, level = 0.95, ...)
 
 vcov.lad <- function(object, ...)
 {
-  so <- summary.lad(object)
-  2. * so$scale^2 * so$cov.unscaled
+  scale <- object$scale
+  2.0 * scale^2 * chol2inv(object$R)
 }
 
 summary.lad <-
@@ -282,13 +284,8 @@ function (object, ...)
 {
   z <- object
   p <- z$dims[2]
-  storage.mode(z$R) <- "double"
-  o <- .C("lad_acov",
-          R = z$R,
-          dims = as.integer(z$dims),
-          acov = double(p^2))
-  cov.unscaled <- matrix(o$acov, ncol = p)
-  se <- z$scale * sqrt(2. * diag(cov.unscaled))
+  cov.unscaled <- chol2inv(z$R)
+  se <- z$scale * sqrt(2.0 * diag(cov.unscaled))
   est <- z$coefficients
   zval <- est / se
   ans <- z[c("call", "terms")]

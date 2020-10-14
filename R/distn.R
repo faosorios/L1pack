@@ -1,3 +1,5 @@
+## ID: distn.R, last updated 2020-10-09, F.Osorio and T.Wolodzko
+
 dlaplace <- function(x, location = 0, scale = 1, log = FALSE)
 {
   if (scale <= 0.0)
@@ -7,7 +9,7 @@ dlaplace <- function(x, location = 0, scale = 1, log = FALSE)
   nloc <- length(location)
   nscale <- length(scale)
 
-  y <- .C("dlaplace",
+  y <- .C("d_laplace",
           n = as.integer(n),
           y = double(n),
           x = as.double(x),
@@ -28,7 +30,7 @@ plaplace <- function(q, location = 0, scale = 1, lower.tail = TRUE, log.p = FALS
   nloc <- length(location)
   nscale <- length(scale)
 
-  y <- .C("plaplace",
+  y <- .C("p_laplace",
           n = as.integer(n),
           y = double(n),
           q = as.double(q),
@@ -50,7 +52,7 @@ qlaplace <- function(p, location = 0, scale = 1, lower.tail = TRUE, log.p = FALS
   nloc <- length(location)
   nscale <- length(scale)
 
-  y <- .C("qlaplace",
+  y <- .C("q_laplace",
           n = as.integer(n),
           y = double(n),
           p = as.double(p),
@@ -71,7 +73,7 @@ rlaplace <- function(n, location = 0, scale = 1)
   nloc <- length(location)
   nscale <- length(scale)
 
-  x <- .C("rlaplace",
+  x <- .C("r_laplace",
           n = as.integer(n),
           x = double(n),
           location = as.double(location),

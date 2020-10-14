@@ -1,4 +1,6 @@
-rmLaplace <- 
+## ID: random.R, last updated 2020-10-09, F.Osorio and T.Wolodzko
+
+rmLaplace <-
 function(n = 1, center = rep(0, nrow(Scatter)), Scatter = diag(length(center)))
 {
   if (n <= 0)
@@ -9,8 +11,8 @@ function(n = 1, center = rep(0, nrow(Scatter)), Scatter = diag(length(center)))
 
   y <- matrix(0, nrow = n, ncol = p)
   dy <- dim(y)
-  # call C code
-  y <- .C("rand_laplace", 
+  # calling C code
+  y <- .C("rand_laplace",
           y = as.double(y),
           dims = as.integer(dy),
           center = as.double(center),

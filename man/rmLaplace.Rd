@@ -1,7 +1,7 @@
 \name{rmLaplace}
 \alias{rmLaplace}
 
-\title{Multivariate Laplace Random Deviates}
+\title{Multivariate Laplace random deviates}
 \description{
   Random number generation from the multivariate Laplace distribution.
 }

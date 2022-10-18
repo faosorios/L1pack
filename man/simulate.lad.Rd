@@ -1,6 +1,6 @@
 \name{simulate.lad}
 \alias{simulate.lad}
-\title{Simulate Responses from \code{lad} Models}
+\title{Simulate responses from \code{lad} models}
 \description{
   Simulate one or more responses from the distribution corresponding to a
   fitted \code{lad} object.
@@ -9,9 +9,9 @@
 \method{simulate}{lad}(object, nsim = 1, seed = NULL, \dots)
 }
 \arguments{
-  \item{object}{an object representing a fitted model.}
-  \item{nsim}{number of response vectors to simulate. Defaults to \code{1}.}
-  \item{seed}{an object specifying if and how the random number generator should
+  \item{object}{ an object representing a fitted model.}
+  \item{nsim}{ number of response vectors to simulate. Defaults to 1.}
+  \item{seed}{ an object specifying if and how the random number generator should
     be initialized (\sQuote{seeded}). For the "lad" method, either \code{NULL}
     or an integer that will be used in a call to \code{set.seed} before simulating
     the response vectors. If set, the value is saved as the \code{"seed"} attribute

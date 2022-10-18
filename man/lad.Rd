@@ -5,26 +5,26 @@
   This function is used to fit linear models considering Laplace errors.
 }
 \usage{
-lad(formula, data, method = c("BR", "EM"), subset, na.action,
-  control, model = TRUE, x = FALSE, y = FALSE, contrasts = NULL)
+lad(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 500,
+  model = TRUE, x = FALSE, y = FALSE, contrasts = NULL)
 }
 \arguments{
-  \item{formula}{an object of class \code{"formula"}: a symbolic description of
+  \item{formula}{ an object of class \code{"formula"}: a symbolic description of
   the model to be fitted.}
-  \item{data}{an optional data frame containing the variables in the model. If
+  \item{data}{ an optional data frame containing the variables in the model. If
   not found in \code{data}, the variables are taken from \code{environment(formula)},
   typically the environment from which \code{lad} is called.}
-  \item{method}{character string specifying the algorithm to use. The default
-  algorithm is the Barrodale and Roberts algorithm \code{method = "BR"}. Other
-  possible value is \code{method = "EM"} for an EM algorithm using IRLS.}
-  \item{subset}{an optional expression indicating the subset of the rows of
+  \item{subset}{ an optional expression indicating the subset of the rows of
   data that should be used in the fit.}
-  \item{na.action}{a function that indicates what should happen when the data contain NAs.}
-  \item{control}{a list of control values for the estimation algorithm to replace
-  the default values returned by the function \code{\link{l1pack.control}}.}
-  \item{model, x, y}{logicals. If \code{TRUE} the corresponding components of
+  \item{na.action}{ a function that indicates what should happen when the data contain NAs.}
+  \item{method}{ character string specifying the fitting method to be used; the options
+  are \code{"BR"} Barrodale and Roberts' method (the default) and \code{"EM"} for an EM
+  algorithm using IRLS.}
+  \item{tol}{ the relative tolerance for the iterative algorithm. Default is \code{tol = 1e-7}.}
+  \item{maxiter}{ The maximum number of iterations for the \code{EM} method. Default to 500.}
+  \item{model, x, y}{ logicals. If \code{TRUE} the corresponding components of
   the fit (the model frame, the model matrix, the response) are returned.}
-  \item{contrasts}{an optional list. See the \code{contrasts.arg} of \code{model.matrix.default}.}
+  \item{contrasts}{ an optional list. See the \code{contrasts.arg} of \code{model.matrix.default}.}
 }
 \value{
   an object of class \code{lad} representing the linear model fit. Generic

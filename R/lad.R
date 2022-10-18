@@ -1,89 +1,193 @@
-## ID: lad.R, last updated 2020-10-09, F.Osorio and T.Wolodzko
+## ID: lad.R, last updated 2022-10-18, F.Osorio
 
 lad <-
-function(formula, data, method = c("BR", "EM"), subset, na.action,
-  control = NULL, model = TRUE, x = FALSE, y = FALSE, contrasts = NULL)
-{
+function(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 500,
+  model = TRUE, x = FALSE, y = FALSE, contrasts = NULL)
+{ ## least absolute deviations fit
   ret.x <- x
   ret.y <- y
   Call <- match.call()
   mf <- match.call(expand.dots = FALSE)
-  mf$method <- mf$control <- mf$model <- mf$x <- mf$y <- mf$contrasts <- NULL
+  mf$method <- mf$tol <- mf$maxiter <- mf$model <- mf$x <- mf$y <- mf$contrasts <- NULL
   mf$drop.unused.levels <- TRUE
   mf[[1]] <- as.name("model.frame")
   mf <- eval(mf, parent.frame())
   Terms <- attr(mf, "terms")
   y <- model.response(mf, "numeric")
   x <- model.matrix(Terms, mf, contrasts)
+
+  # call fitter
+  z <- lad.fit(x, y, method, tol, maxiter)
+
+  # output
+  z$call <- Call
+  z$na.action <- attr(mf, "na.action")
+  z$contrasts <- attr(x, "contrasts")
+  z$xlevels <- .getXlevels(Terms, mf)
+  z$terms <- Terms
+  if (model)
+    z$model <- mf
+  if (ret.y)
+    z$y <- y
+  if (ret.x)
+    z$x <- x
+  class(z) <- "lad"
+  z
+}
+
+lad.fit <-
+function(x, y, method = "BR", tol = 1e-7, maxiter = 500)
+{ ## dispatcher among various fitting functions
+  if (!is.numeric(x))
+    stop("model matrix must be numeric.")
+  if (!is.numeric(y))
+    stop("response must be numeric.")
+  if (!length(x))
+    method <- "null"
+  contr <- attr(x, 'contrast')
+  fit <- switch(method,
+                BR  = lad.fit.BR(x, y, tol),
+                EM  = lad.fit.EM(x, y, tol, maxiter),
+                stop(paste("unimplemented method:", method)))
+  fit$contrast <- contr
+  fit$method <- method
+  fit
+}
+
+lad.fit.BR <-
+function(x, y, tol = 1e-7)
+{
+  if (is.matrix(y))
+    stop("'lad.fit.BR' does not support multiple responses.")
+  storage.mode(x) <- "double"
+  storage.mode(y) <- "double"
+	ny <- length(y)
+	dx <- dim(x)
+	n <- dx[1]
   ynames <- names(y)
-  xnames <- dimnames(x)[[2]]
-  dx <- dim(x)
-  n  <- dx[1]
+	xnames <- dimnames(x)[[2]]
+	if (n != ny)
+		stop("Number of observations in x and y not equal.")
+	p <- dx[2]
+  if (n <= p)
+    stop("More variables than observations.")
 
-  ## set control values
-  if (is.null(control))
-    control <- l1pack.control()
-  method <- match.arg(method)
-  choice <- switch(method, "BR" = 0, "EM" = 1)
-  ctrl  <- unlist(control)
-  nctrl <- names(control)
-  ctrl  <- c(ctrl, choice, 0)
+  # call fitter
+  converged <- TRUE
+  now <- proc.time()
+  z <- .C("lad_BR",
+          y = y,
+          x = x,
+          n = as.integer(n),
+          p = as.integer(p),
+          coef = double(p),
+          scale = as.double(0),
+          sad = as.double(0),
+          fitted = double(n),
+          residuals = double(n),
+          logLik = as.double(0),
+          tol = as.double(tol),
+          rank = as.integer(0),
+          iter = as.integer(0),
+          info = as.integer(0))
+  speed <- proc.time() - now
+  msg <- character(0)
+  if (z$info == 0)
+    msg <- "Non-unique solution possible."
+  else if(z$info != 1) {
+    msg <- "Premature termination."
+    converged <- FALSE
+  }
+  if (z$rank != p)
+    msg <- c(msg, paste("Matrix not of full rank, apparent rank", z$rank))
 
-  ## initial estimates
+  # post-processing
+  basic <- (1:n)[z$residuals == 0.0]
+  R <- chol(crossprod(x))
+
+  # creating the output object
+  out <- list(coefficients = z$coef, scale = z$scale, residuals = z$residuals,
+              fitted.values = z$fitted, SAD = z$sad, logLik = z$logLik, basic = basic,
+              dims = dx, R = R, iterations = z$iter, speed = speed, converged = converged)
+  if (length(msg))
+    out$message <- msg
+  names(out$coefficients) <- xnames
+  names(out$residuals) <- ynames
+  names(out$fitted.values) <- ynames
+  dimnames(out$R) <- list(xnames, xnames)
+  class(out) <- "lad"
+  out
+}
+
+lad.fit.EM <-
+function(x, y, tol = 1e-7, maxiter = 500)
+{
+  if (is.matrix(y))
+    stop("'lad.fit.EM' does not support multiple responses.")
+  storage.mode(x) <- "double"
+  storage.mode(y) <- "double"
+	ny <- length(y)
+	dx <- dim(x)
+	n <- dx[1]
+  ynames <- names(y)
+	xnames <- dimnames(x)[[2]]
+	if (n != ny)
+		stop("Number of observations in x and y not equal.")
+	p <- dx[2]
+  if (n <= p)
+    stop("More variables than observations.")
+
+  # set control values
+  control <- c(maxiter, tol, 0)
+
+  # initial estimates
   fit <- lsfit(x, y, intercept = FALSE)
   res <- fit$residuals
   cf <- fit$coefficients
   R <- qr.R(fit$qr)
 
-  ## Call fitter
+  # call fitter
+  converged <- FALSE
   now <- proc.time()
-  fit <- .C("lad_fitter",
-            y = as.double(y),
-            x = as.double(x),
-            dims = as.integer(dx),
-            coefficients = as.double(cf),
-            scale  = as.double(0),
-            fitted = double(n),
-            resid  = as.double(res),
-            weights = as.double(rep(1, n)),
-            control = as.double(ctrl),
-            sad = as.double(0),
-            logLik = as.double(0))
+  z <- .C("lad_EM",
+          y = y,
+          x = x,
+          n = as.integer(n),
+          p = as.integer(p),
+          coefficients = as.double(cf),
+          scale = as.double(0),
+          fitted = double(n),
+          residuals = as.double(res),
+          weights = as.double(rep(1, n)),
+          sad = as.double(0),
+          logLik = as.double(0),
+          tol = as.double(tol),
+          iter = as.integer(maxiter))
   speed <- proc.time() - now
 
-  ## creating the output object
-  out <- list(call = Call,
-              dims = fit$dims,
-              coefficients = fit$coefficients,
-              scale = fit$scale,
-              minimum = fit$sad,
-              fitted.values = fit$fitted,
-              residuals = fit$resid,
-              R = R,
-              numIter = fit$control[4],
-              control = fit$control,
-              weights = fit$weights,
-              logLik = fit$logLik,
-              speed = speed,
-              converged = FALSE)
-  if (out$numIter < control$maxIter)
-    out$converged <- TRUE
-  names(out$control) <- c(nctrl, "method", "numIter")
+  # post-processing
+  if (z$iter < maxiter)
+    converged <- TRUE
+  eps <- .Machine$double.eps^.35
+  basic <- (1:n)[abs(z$residuals) < eps * z$sad]
+  msg <- character(0)
+  if (length(basic) == 0) {
+    basic <- NULL
+    msg <- "method was unable to determine basic observations"
+  }
+
+  # creating the output object
+  out <- list(coefficients = z$coef, scale = z$scale, residuals = z$residuals,
+              fitted.values = z$fitted, SAD = z$sad, logLik = z$logLik,
+              weights = z$weights, basic = basic, dims = dx, R = R, iterations = z$iter,
+              speed = speed, converged = converged)
+  if (length(msg))
+    out$message <- msg
   names(out$coefficients) <- xnames
   names(out$residuals) <- ynames
-  names(out$fitted) <- ynames
+  names(out$fitted.values) <- ynames
   names(out$weights) <- ynames
   dimnames(out$R) <- list(xnames, xnames)
-  out$na.action <- attr(mf, "na.action")
-  out$contrasts <- attr(x, "contrasts")
-  out$xlevels <- .getXlevels(Terms, mf)
-  out$terms <- Terms
-  if (model)
-    out$model <- mf
-  if (ret.y)
-    out$y <- fit$y #y
-  if (ret.x)
-    out$x <- fit$x #x
   class(out) <- "lad"
   out
 }
@@ -92,17 +196,21 @@ print.lad <-
 function(x, digits = 4, ...)
 {
   cat("Call:\n")
-  dput(x$call, control = NULL)
+  dput(x$call)
   if (x$converged)
-    cat("Converged in", x$numIter, "iterations\n")
-  else
-    cat("Maximum number of iterations exceeded")
-  cat("\nCoefficients:\n ")
+    cat("Converged in", x$iterations, "iterations\n")
+  else {
+    if (x$method == "EM")
+      cat("Maximum number of iterations exceeded\n")
+  }
+  cat("\nCoefficients:\n")
   print(format(round(x$coef, digits = digits)), quote = F, ...)
   nobs <- x$dims[1]
   rdf <- nobs - x$dims[2]
   cat("\nDegrees of freedom:", nobs, "total;", rdf, "residual")
   cat("\nScale estimate:", format(x$scale), "\n")
+  if (!is.null(x$message))
+    cat(paste("\nNOTE:", x$message, "\n"))
   invisible(x)
 }
 
@@ -112,15 +220,14 @@ function(object, type = c("working", "response", "quantile"), ...)
   type <- match.arg(type)
   r <- object$residuals
   res <- switch(type,
-                working =, response = r,
+                working = r, response = r,
                 quantile = {
                   y <- model.response(object$model)
                   mu <- fitted(object)
                   dispersion <- object$scale
                   logp <- plaplace(y, location = mu, scale = dispersion, log.p = TRUE)
                   qnorm(logp, log.p = TRUE)
-                }
-         )
+                })
   res
 }
 
@@ -138,7 +245,7 @@ logLik.lad <- function(object, ...)
   N <- object$dims[1]
   p <- object$dims[2]
   attr(val, "nall") <- N
-  attr(val, "nobs") <- N ## basic observations must be deleted?
+  attr(val, "nobs") <- N # basic observations must be deleted?
   attr(val, "df") <- p + 1
   class(val) <- "logLik"
   val
@@ -172,7 +279,7 @@ function(x, which = 1:2,
     stop("`which' must be in 1:2")
   show <- rep(FALSE, 2)
   show[which] <- TRUE
-  rs <- residuals(x, type = "quantile") ## a kind of standardized residual
+  rs <- residuals(x, type = "quantile") # a kind of standardized residual
   yhat <- fitted(x)
   rs.lab <- "Standardized residuals"
   yh.lab <- "Fitted values"
@@ -184,7 +291,7 @@ function(x, which = 1:2,
     if (id.n < 0 || id.n > n)
       stop("`id.n' must be in {1,..,",n,"}")
   }
-  if (id.n > 0) { ## label the largest residuals
+  if (id.n > 0) { # label the largest residuals
     if (is.null(labels.id))
       labels.id <- paste(1:n)
     iid <- 1:id.n
@@ -198,7 +305,7 @@ function(x, which = 1:2,
     op <- par(ask = TRUE)
     on.exit(par(op))
   }
-  ##---------- Do the individual plots : ----------
+  #---------- Do the individual plots : ----------
   if (show[1L]) {
     ylim <- range(rs, na.rm = TRUE)
     if (id.n > 0)
@@ -215,7 +322,7 @@ function(x, which = 1:2,
     }
     abline(h = 0, lty = 3, col = "gray")
   }
-  if (show[2L]) { ## Laplace
+  if (show[2L]) { # Laplace
     ylim <- range(rs, na.rm=TRUE)
     ylim[2] <- ylim[2] + diff(ylim) * 0.075
     qq <- qqnorm(rs, main = main, ylab = rs.lab, ylim = ylim, ...)
@@ -305,7 +412,7 @@ print.summary.lad <-
 function(x, digits = 4, ...)
 {
   cat("Call:\n")
-  dput(x$call, control = NULL)
+  dput(x$call)
   resid <- x$residuals
   nobs <- x$dims[1]
   p <- x$dims[2]
@@ -320,7 +427,7 @@ function(x, digits = 4, ...)
 	 cat("\nResiduals:\n")
 	 print(resid, digits = digits, ...)
   }
-  cat("\nCoefficients:\n ")
+  cat("\nCoefficients:\n")
   print(format(round(x$coef, digits = digits)), quote = F, ...)
   cat("\nDegrees of freedom:", nobs, "total;", rdf, "residual")
   cat("\nScale estimate:", format(x$scale))

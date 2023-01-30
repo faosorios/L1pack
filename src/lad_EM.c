@@ -1,4 +1,4 @@
-/* ID: lad_EM.c, last updated 2022-10-17, F.Osorio */
+/* ID: lad_EM.c, last updated 2022-11-01, F.Osorio */
 
 #include "base.h"
 #include "interface.h"
@@ -10,12 +10,10 @@ do_weight(double residual, double eps)
   double ans, dev;
 
   dev = fabs(residual);
-  if (dev > eps)
-    ans = 1.0 / dev;  /* 'EM' weights */
-  else if (dev < eps)
+  if (dev < eps)
     ans = 1.0;        /* basic observations */
   else
-    ans = eps / dev;
+    ans = 1.0 / dev;  /* 'EM' weights */
   return ans;
 }
 

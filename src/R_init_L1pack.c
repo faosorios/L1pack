@@ -1,4 +1,4 @@
-/* ID: R_init_L1pack.c, last updated 2022-10-17, F.Osorio */
+/* ID: R_init_L1pack.c, last updated 2023-05-17, F.Osorio */
 
 #include "base.h"
 #include "lad.h"
@@ -18,8 +18,9 @@ extern void p_laplace(int *, double *, double *, double *, int *, double *, int 
 extern void q_laplace(int *, double *, double *, double *, int *, double *, int *, int *, int *);
 extern void r_laplace(int *, double *, double *, int *, double *, int *);
 
-/* multivariate Laplace random variate generation */
-extern void rand_laplace(double *, int *, double *, double *);
+/* density and RNG for the multivariate Laplace distribution */
+extern void pdf_mlaplace(double *, int *, double *, double *, int *, double *);
+extern void RNG_mlaplace(double *, int *, double *, double *);
 
 /* registering C and F77 symbols */
 static const R_CMethodDef CEntries[]  = {
@@ -29,7 +30,7 @@ static const R_CMethodDef CEntries[]  = {
   CALLDEF(r_laplace,       6),
   CALLDEF(lad_BR,         14),
   CALLDEF(lad_EM,         13),
-  CALLDEF(rand_laplace,    4),
+  CALLDEF(RNG_mlaplace,    4),
   {NULL, NULL, 0}
 };
 

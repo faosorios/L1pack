@@ -1,4 +1,4 @@
-/* ID: interface.h, last updated 2020-10-09, F.Osorio */
+/* ID: interface.h, last updated 2023-05-17, F.Osorio */
 
 #ifndef L1PACK_INTERFACE_H
 #define L1PACK_INTERFACE_H
@@ -7,8 +7,10 @@
 extern void ax_plus_y(double, double *, int, double *, int, int);
 extern void copy_mat(double *, int, double *, int, int, int);
 extern void GAXPY(double *, double, double *, int, int, int, double *, double);
+extern double logAbsDet(double *, int, int);
 extern void mult_triangular_vec(double *, int, int, char *, char *, char *, double *, int);
 extern void mult_triangular_mat(double, double *, int, int, int, char *, char *, char *, char *, double *, int);
+extern double norm_two(double *, int, int);
 extern void scale(double *, int, int, double);
 extern double sum_abs(double *, int, int);
 
@@ -22,5 +24,8 @@ extern void QR_qty(double *, int, int, int, double *, double *, int, int, int, i
 
 /* triangular solver */
 extern void backsolve(double *, int, int, double *, int, int, int *);
+
+/* Mahalanobis distance */
+extern double mahalanobis(double *, int, double *, double *);
 
 #endif /* L1PACK_INTERFACE_H */

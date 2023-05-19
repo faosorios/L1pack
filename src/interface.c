@@ -1,15 +1,23 @@
-/* ID: interface.c, last updated 2020-10-09, F.Osorio */
+/* ID: interface.c, last updated 2023-05-17, F.Osorio */
 
 #include "base.h"
 #include "interface.h"
 #include <fastmatrix_API.h>
 
-/* basic matrix manipulations */
+/* ========================================================================== *
+ * basic matrix manipulations
+ * ========================================================================== */
 
 void
 ax_plus_y(double alpha, double *x, int incx, double *y, int incy, int n)
 { /* y <- alpha * x + y */
   BLAS1_axpy(alpha, x, incx, y, incy, n);
+}
+
+double
+norm_two(double *x, int n, int inc)
+{ /* sqrt(sum(x^2)) */
+  return BLAS1_norm_two(x, inc, n);
 }
 
 void
@@ -36,6 +44,12 @@ GAXPY(double *y, double alpha, double *a, int lda, int nrow, int ncol, double *x
   FM_GAXPY(y, alpha, a, lda, nrow, ncol, x, beta, 0); /* job = 0 */
 }
 
+double 
+logAbsDet(double *a, int lda, int n)
+{ /* log(abs(det(a))) */
+  return FM_logAbsDet(a, lda, n);
+}
+
 void
 mult_triangular_vec(double *a, int lda, int n, char *uplo, char *trans, char *diag, double *x, int inc)
 { /* wrapper to BLAS-2 routine 'DTRMV' */
@@ -48,7 +62,9 @@ mult_triangular_mat(double alpha, double *a, int lda, int nrow, int ncol, char *
   BLAS3_trmm(alpha, a, lda, nrow, ncol, side, uplo, trans, diag, y, ldy);
 }
 
-/* routines for matrix decompositions */
+/* ========================================================================== *
+ * routines for matrix decompositions
+ * ========================================================================== */
 
 void
 chol_decomp(double *a, int lda, int p, int job, int *info)
@@ -65,7 +81,9 @@ QR_decomp(double *mat, int ldmat, int nrow, int ncol, double *qraux, int *info)
   FM_QR_decomp(mat, ldmat, nrow, ncol, qraux, info);
 }
 
-/* orthogonal-triangular operations */
+/* ========================================================================== *
+ * orthogonal-triangular operations
+ * ========================================================================== */
 
 void
 QR_qty(double *qr, int ldq, int nrow, int ncol, double *qraux, double *ymat, int ldy, int yrow, int ycol, int *info)
@@ -79,7 +97,9 @@ QR_qy(double *qr, int ldq, int nrow, int ncol, double *qraux, double *ymat, int 
   FM_QR_qy(qr, ldq, nrow, ncol, qraux, ymat, ldy, yrow, ycol, info);
 }
 
-/* triangular solver */
+/* ========================================================================== *
+ * triangular solver
+ * ========================================================================== */
 
 void
 backsolve(double *r, int ldr, int n, double *b, int ldb, int nrhs, int *info)
@@ -87,4 +107,15 @@ backsolve(double *r, int ldr, int n, double *b, int ldb, int nrhs, int *info)
    * is an upper triangular matrix and b is a matrix containing the right-hand
    * sides to equations */
   FM_backsolve(r, ldr, n, b, ldb, nrhs, info);
+}
+
+/* ========================================================================== *
+ * Mahalanobis distance
+ * ========================================================================== */
+
+double 
+mahalanobis(double *x, int p, double *center, double *Root)
+{ /* Mahalanobis distance (just for a single observation), the argument 'Root'
+   * corresponds to the lower triangular factor of the covariance matrix */
+  return FM_mahalanobis(x, p, center, Root);
 }

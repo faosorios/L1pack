@@ -1,4 +1,4 @@
-/* ID: lad.h, last updated 2022-10-17, F.Osorio */
+/* ID: lad.h, last updated 2023-05-16, F.Osorio */
 
 #ifndef L1PACK_LAD_H
 #define L1PACK_LAD_H
@@ -17,7 +17,7 @@ void IRLS_increment(double *, double *, int, int, double *, double *, double *, 
 /* linear programming method to solve L1 regression problems */
 void F77_NAME(l1br)(double *, double *, int *, int *, int *, int *, double *, double *, double *, int *, double *, int *, int *, int *);
 
-/* spherical random generation */
-void rand_spherical_laplace(double *, int, int);
+/* standard Laplace random generation */
+void rmlaplace_std(double *, int, int);
 
 #endif /* L1PACK_LAD_H */

@@ -1,7 +1,7 @@
 ## ID: lad.R, last updated 2022-10-18, F.Osorio
 
 lad <-
-function(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 500,
+function(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 200,
   model = TRUE, x = FALSE, y = FALSE, contrasts = NULL)
 { ## least absolute deviations fit
   ret.x <- x
@@ -36,7 +36,7 @@ function(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 
 }
 
 lad.fit <-
-function(x, y, method = "BR", tol = 1e-7, maxiter = 500)
+function(x, y, method = "BR", tol = 1e-7, maxiter = 200)
 { ## dispatcher among various fitting functions
   if (!is.numeric(x))
     stop("model matrix must be numeric.")
@@ -120,7 +120,7 @@ function(x, y, tol = 1e-7)
 }
 
 lad.fit.EM <-
-function(x, y, tol = 1e-7, maxiter = 500)
+function(x, y, tol = 1e-7, maxiter = 200)
 {
   if (is.matrix(y))
     stop("'lad.fit.EM' does not support multiple responses.")

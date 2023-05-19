@@ -5,7 +5,7 @@
   This function is used to fit linear models considering Laplace errors.
 }
 \usage{
-lad(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 500,
+lad(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 200,
   model = TRUE, x = FALSE, y = FALSE, contrasts = NULL)
 }
 \arguments{
@@ -21,13 +21,13 @@ lad(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 500,
   are \code{"BR"} Barrodale and Roberts' method (the default) and \code{"EM"} for an EM
   algorithm using IRLS.}
   \item{tol}{ the relative tolerance for the iterative algorithm. Default is \code{tol = 1e-7}.}
-  \item{maxiter}{ The maximum number of iterations for the \code{EM} method. Default to 500.}
+  \item{maxiter}{ The maximum number of iterations for the \code{EM} method. Default to 200.}
   \item{model, x, y}{ logicals. If \code{TRUE} the corresponding components of
   the fit (the model frame, the model matrix, the response) are returned.}
   \item{contrasts}{ an optional list. See the \code{contrasts.arg} of \code{model.matrix.default}.}
 }
 \value{
-  an object of class \code{lad} representing the linear model fit. Generic
+  An object of class \code{lad} representing the linear model fit. Generic
   function \code{print}, show the results of the fit.
 
   The functions \code{print} and \code{summary} are used to obtain and print a summary
@@ -36,7 +36,7 @@ lad(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 500,
 }
 \author{The design was inspired by the R function \code{\link{lm}}.}
 \references{
-  Barrodale, I., and Roberts, F.D.K. (1974).
+  Barrodale, I., Roberts, F.D.K. (1974).
   Solution of an overdetermined system of equations in the L1 norm.
   \emph{Communications of the ACM} \bold{17}, 319-320.
 

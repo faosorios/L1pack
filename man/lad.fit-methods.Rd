@@ -4,7 +4,7 @@
 \title{Fit a least absolute deviation (LAD) regression model}
 \usage{
 lad.fit.BR(x, y, tol = 1e-7)
-lad.fit.EM(x, y, tol = 1e-7, maxiter = 500)
+lad.fit.EM(x, y, tol = 1e-7, maxiter = 200)
 }
 \description{
   Fits a linear model using LAD methods, returning the bare minimum computations.
@@ -14,7 +14,7 @@ lad.fit.EM(x, y, tol = 1e-7, maxiter = 500)
   a linear model. Typically, but not necessarily, \code{x} will be constructed by
   one of the fitting functions.}
   \item{tol}{ the relative tolerance for the iterative algorithm. Default is \code{tol = 1e-7}.}
-  \item{maxiter}{ The maximum number of iterations for the \code{EM} method. Default to 500.}
+  \item{maxiter}{ The maximum number of iterations for the \code{EM} method. Default to 200.}
 }
 \value{
   The bare bones of a \code{lad} object: the coefficients, residuals, fitted values,

@@ -2,7 +2,7 @@
 \alias{lad.fit}
 \title{Fitter functions for least absolute deviation (LAD) regression}
 \usage{
-lad.fit(x, y, method = "BR", tol = 1e-7, maxiter = 500)
+lad.fit(x, y, method = "BR", tol = 1e-7, maxiter = 200)
 }
 \description{
   This function is a \emph{switcher} among various numerical fitting functions
@@ -15,7 +15,7 @@ lad.fit(x, y, method = "BR", tol = 1e-7, maxiter = 500)
   \item{y}{ vector of observations of length \eqn{n}.}
   \item{method}{ currently, methods \code{"BR"} (default), and \code{"EM"} are supported.}
   \item{tol}{ the relative tolerance for the iterative algorithm. Default is \code{tol = 1e-7}.}
-  \item{maxiter}{ The maximum number of iterations for the \code{EM} method. Default to 500.}
+  \item{maxiter}{ The maximum number of iterations for the \code{EM} method. Default to 200.}
 }
 \value{
   a \code{\link{list}} with components:
@@ -26,7 +26,7 @@ lad.fit(x, y, method = "BR", tol = 1e-7, maxiter = 500)
   \item{SAD}{ the sum of absolute deviations.}
   \item{weights}{ estimated \code{EM} weights.}
   \item{basic}{ basic observations, that is observations with zero residuals.}
-  \item{logLik}{  the log-likelihood at convergence.}
+  \item{logLik}{ the log-likelihood at convergence.}
 }
 \seealso{
   \code{\link{lad.fit.BR}}, \code{\link{lad.fit.EM}}.

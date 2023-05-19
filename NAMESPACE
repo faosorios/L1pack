@@ -16,8 +16,8 @@ importFrom("stats", # some S3 generics for which we define methods
            qqnorm, quantile, residuals, runif, simulate, terms, vcov)
 
 ## Our Exports:
-export(dlaplace, l1fit, lad, lad.fit, lad.fit.BR, lad.fit.EM, plaplace, qlaplace,
-       rlaplace, rmLaplace)
+export(dlaplace, dmLaplace, l1fit, lad, lad.fit, lad.fit.BR, lad.fit.EM, plaplace, 
+       qlaplace, rlaplace, rmLaplace)
 
 ## Exported S3 methods
 export(simulate.lad)

@@ -1,4 +1,4 @@
-## ID: distn.R, last updated 2023-05-17, F.Osorio and T.Wolodzko
+## ID: distn.R, last updated 2023-12-30, F.Osorio and T.Wolodzko
 
 dlaplace <- function(x, location = 0, scale = 1, log = FALSE)
 { # density of the Laplace distribution
@@ -96,13 +96,18 @@ function(x, center = rep(0, nrow(Scatter)), Scatter = diag(length(center)), log 
   if (!isSymmetric(Scatter))
     Scatter <- asSymmetric(Scatter)
 
-  u <- Mahalanobis(x, center, Scatter, inverted = FALSE)
-  R <- chol(Scatter)
-  logdet <- sum(log(diag(R)))
-  logk <- lgamma(.5 * p) - .5 * p * log(pi) - lgamma(p) - (p + 1) * log(2)
-  val <- logk - logdet - .5 * sqrt(u) 
+  storage.mode(x) <- "double"
+  storage.mode(Scatter) <- "double"
 
-  if (!give.log) val <- exp(val)
-  val
+  y <- .C("pdf_mlaplace",
+          y = double(n),
+          x = x,
+          n = as.integer(n),
+          p = as.integer(p),
+          center = as.double(center),
+          Scatter = Scatter)$y
+
+  if (!give.log) y <- exp(y)
+  y
 }
 

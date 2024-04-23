@@ -1,14 +1,14 @@
-## ID: lad.R, last updated 2022-10-18, F.Osorio
+## ID: lad.R, last updated 2024-01-16, F.Osorio and T.Wolodzko
 
 lad <-
-function(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 200,
-  model = TRUE, x = FALSE, y = FALSE, contrasts = NULL)
+function(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 200, 
+  x = FALSE, y = FALSE, contrasts = NULL)
 { ## least absolute deviations fit
   ret.x <- x
   ret.y <- y
   Call <- match.call()
   mf <- match.call(expand.dots = FALSE)
-  mf$method <- mf$tol <- mf$maxiter <- mf$model <- mf$x <- mf$y <- mf$contrasts <- NULL
+  mf$method <- mf$tol <- mf$maxiter <- mf$x <- mf$y <- mf$contrasts <- NULL
   mf$drop.unused.levels <- TRUE
   mf[[1]] <- as.name("model.frame")
   mf <- eval(mf, parent.frame())
@@ -21,12 +21,11 @@ function(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 
 
   # output
   z$call <- Call
+  z$model <- mf
   z$na.action <- attr(mf, "na.action")
   z$contrasts <- attr(x, "contrasts")
   z$xlevels <- .getXlevels(Terms, mf)
   z$terms <- Terms
-  if (model)
-    z$model <- mf
   if (ret.y)
     z$y <- y
   if (ret.x)
@@ -176,10 +175,13 @@ function(x, y, tol = 1e-7, maxiter = 200)
     msg <- "method was unable to determine basic observations"
   }
 
+  # 'final' EM weights
+  weights <- z$scale * z$weights / sqrt(2)
+
   # creating the output object
   out <- list(coefficients = z$coef, scale = z$scale, residuals = z$residuals,
               fitted.values = z$fitted, SAD = z$sad, logLik = z$logLik,
-              weights = z$weights, basic = basic, dims = dx, R = R, iterations = z$iter,
+              weights = weights, basic = basic, dims = dx, R = R, iterations = z$iter,
               speed = speed, converged = converged)
   if (length(msg))
     out$message <- msg

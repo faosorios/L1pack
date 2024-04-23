@@ -1,4 +1,4 @@
-/* ID: R_init_L1pack.c, last updated 2023-05-17, F.Osorio */
+/* ID: R_init_L1pack.c, last updated 2024-01-03, F.Osorio */
 
 #include "base.h"
 #include "lad.h"
@@ -12,6 +12,9 @@ extern void F77_NAME(l1)(int *, int *, int *, int *, double *, double *, double 
 extern void lad_BR(double *, double *, int *, int *, double *, double *, double *, double *, double *, double *, double *, int *, int *, int *);
 extern void lad_EM(double *, double *, int *, int *, double *, double *, double *, double *, double *, double *, double *, double *, int *);
 
+/* multivariate Laplace estimation */
+extern void Laplace_fitter(double *, int *, int *, double *, double *, double *, double *, double *, double *, int *);
+
 /* dpqr-functions for the Laplace distribution */
 extern void d_laplace(int *, double *, double *, double *, int *, double *, int *, int *);
 extern void p_laplace(int *, double *, double *, double *, int *, double *, int *, int *, int *);
@@ -19,21 +22,28 @@ extern void q_laplace(int *, double *, double *, double *, int *, double *, int 
 extern void r_laplace(int *, double *, double *, int *, double *, int *);
 
 /* density and RNG for the multivariate Laplace distribution */
-extern void pdf_mlaplace(double *, int *, double *, double *, int *, double *);
+extern void pdf_mlaplace(double *, double *, int *, int *, double *, double *);
 extern void RNG_mlaplace(double *, int *, double *, double *);
 
-/* registering C and F77 symbols */
+/* Wilson-Hilferty transformation */
+extern void Wilson_Hilferty_Laplace(double *, int *, int *, double *);
+
+/* registering C and symbols */
 static const R_CMethodDef CEntries[]  = {
-  CALLDEF(d_laplace,       8),
-  CALLDEF(p_laplace,       9),
-  CALLDEF(q_laplace,       9),
-  CALLDEF(r_laplace,       6),
-  CALLDEF(lad_BR,         14),
-  CALLDEF(lad_EM,         13),
-  CALLDEF(RNG_mlaplace,    4),
+  CALLDEF(d_laplace,                8),
+  CALLDEF(p_laplace,                9),
+  CALLDEF(q_laplace,                9),
+  CALLDEF(r_laplace,                6),
+  CALLDEF(lad_BR,                  14),
+  CALLDEF(lad_EM,                  13),
+  CALLDEF(Laplace_fitter,          10),
+  CALLDEF(pdf_mlaplace,             6),
+  CALLDEF(RNG_mlaplace,             4),
+  CALLDEF(Wilson_Hilferty_Laplace,  4),
   {NULL, NULL, 0}
 };
 
+/* registering F77 symbols */
 static const R_FortranMethodDef F77Entries[] = {
   F77DEF(l1,              10),
   {NULL, NULL, 0}

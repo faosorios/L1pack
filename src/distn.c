@@ -1,6 +1,7 @@
-/* ID: distn.c, last updated 2023-05-16, F.Osorio */
+/* ID: distn.c, last updated 2023-12-28, F.Osorio */
 
 #include "base.h"
+#include "interface.h"
 #include "lad.h"
 
 /* dpq-functions for Laplace distribution */
@@ -90,4 +91,34 @@ void q_laplace(int *n, double *y, double *p, double *location, int *nloc, double
 
   for (int i = 0; i < nobs; i++)
     y[i] = quantile_laplace(p[i], location[i % na], scale[i % nb], lower, log_prob);
+}
+
+/* ========================================================================== *
+ * pdf for the multivariate Laplace distribution
+ * ========================================================================== */
+
+void
+pdf_mlaplace(double *y, double *x, int *nobs, int *vars, double *center, double *Scatter)
+{ /* evaluation of the multivariate Laplace log-density function */
+  int errcode = 0, job = 0, n = *nobs, p = *vars;
+  double *Root, *z, D2, log_pdf;
+
+  Root = (double *) Calloc(p * p, double);
+  z    = (double *) Calloc(p, double);
+
+  copy_lower(Root, p, Scatter, p, p);
+  chol_decomp(Root, p, p, job, &errcode);
+  if (errcode)
+    error("Cholesky decomposition in pdf_mlaplace gave code %d", errcode);
+  
+  log_pdf  = lgammafn(0.5 * p) - (double) p * M_LN_SQRT_PI - lgammafn((double) p) - (p + 1.0) * M_LN2;
+  log_pdf -= logAbsDet(Root, p, p);
+  
+  for (int i = 0; i < n; i++) {
+    copy_vec(z, 1, x + i, n, p);
+    D2 = mahalanobis(z, p, center, Root);
+    y[i] = log_pdf - 0.5 * sqrt(D2);
+  }
+
+  Free(Root); Free(z);
 }

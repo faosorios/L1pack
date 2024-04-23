@@ -1,10 +1,15 @@
-/* ID: lad_EM.c, last updated 2022-11-01, F.Osorio */
+/* ID: lad_EM.c, last updated 2024-01-16, F.Osorio */
 
 #include "base.h"
 #include "interface.h"
 #include "lad.h"
 
-double
+/* static functions.. */
+static double do_weight(double, double);
+static double lad_objective(double *, int);
+/* ..end declarations */
+
+static double
 do_weight(double residual, double eps)
 { /* weighting strategy due to Phillips (2002) */
   double ans, dev;
@@ -32,7 +37,7 @@ lad_EM(double *y, double *x, int *nobs, int *vars, double *coef, double *scale,
   *logLik  = lad_logLik(scale, n);
 }
 
-double
+static double
 lad_objective(double *residuals, int n)
 { /* sum of absolute deviations */
   double ans;
@@ -72,10 +77,10 @@ IRLS(double *x, double *y, int n, int p, double *coef, double *scale, double *sa
     IRLS_increment(x, y, n, p, coef, incr, working, fitted, residuals, weights);
     newSAD = lad_objective(residuals, n);
     *sad = newSAD;
-    *scale = M_SQRT2 * *sad / n;
+    *scale = M_SQRT2 * *sad / n; /* CM-step for the 'scale' parameter */
 
     /* eval convergence */
-    conv = fabs((newSAD - SAD) / (newSAD + ETA_CONV));
+    conv = fabs((newSAD - SAD) / (newSAD + ABSTOL));
     if (conv < tolerance) { /* successful completion */
       Free(incr); Free(working);
       return iter;

@@ -1,4 +1,4 @@
-/* ID: interface.c, last updated 2023-05-17, F.Osorio */
+/* ID: interface.c, last updated 2024-01-03, F.Osorio */
 
 #include "base.h"
 #include "interface.h"
@@ -12,6 +12,18 @@ void
 ax_plus_y(double alpha, double *x, int incx, double *y, int incy, int n)
 { /* y <- alpha * x + y */
   BLAS1_axpy(alpha, x, incx, y, incy, n);
+}
+
+void
+copy_vec(double *y, int incy, double *x, int incx, int n)
+{ /* y <- x (alternative to Memcpy with increments not equal to 1) */
+  BLAS1_copy(y, incy, x, incx, n);
+}
+
+double
+dot_product(double *x, int incx, double *y, int incy, int n)
+{ /* sum(x * y) */
+  return BLAS1_dot_product(x, incx, y, incy, n);
 }
 
 double
@@ -36,6 +48,12 @@ void
 copy_mat(double *y, int ldy, double *x, int ldx, int nrow, int ncol)
 { /* y <- x[,] */
   FM_copy_mat(y, ldy, x, ldx, nrow, ncol);
+}
+
+void
+copy_lower(double *y, int ldy, double *x, int ldx, int p)
+{ /* lower.tri(y) <- lower.tri(x) */
+  FM_cpy_lower(x, ldx, p, y, ldy);
 }
 
 void
@@ -110,6 +128,22 @@ backsolve(double *r, int ldr, int n, double *b, int ldb, int nrhs, int *info)
 }
 
 /* ========================================================================== *
+ * (multivariate) descriptive statistics 
+ * ========================================================================== */
+
+void
+center_and_Scatter(double *x, int n, int p, double *weights, double *center, double *Scatter)
+{ /* compute center and Scatter estimates using an online algorithm */
+  FM_center_and_Scatter(x, n, p, weights, center, Scatter);
+}
+
+void
+center_online(double *x, int n, int p, double *weights, double *center)
+{ /* compute center estimate using an online algorithm */
+  FM_online_center(x, n, p, weights, center);
+}
+
+/* ========================================================================== *
  * Mahalanobis distance
  * ========================================================================== */
 
@@ -118,4 +152,14 @@ mahalanobis(double *x, int p, double *center, double *Root)
 { /* Mahalanobis distance (just for a single observation), the argument 'Root'
    * corresponds to the lower triangular factor of the covariance matrix */
   return FM_mahalanobis(x, p, center, Root);
+}
+
+/* ========================================================================== *
+ * Wilson-Hilferty transformation
+ * ========================================================================== */
+
+void
+WH_Laplace(double *distances, int n, int p, double *z)
+{ /* Wilson-Hilferty transformation for multivariate Laplace deviates */
+  FM_WH_Laplace(distances, n, p, z);
 }

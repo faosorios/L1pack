@@ -1,9 +1,10 @@
-/* ID: base.h, last updated 2022-04-21, F.Osorio */
+/* ID: base.h, last updated 2023-12-27, F.Osorio */
 
 #ifndef L1PACK_BASE_H
 #define L1PACK_BASE_H
 
 #include <R.h>
+#include <Rconfig.h>
 #include <Rmath.h>
 #include <Rinternals.h>
 #include <R_ext/Print.h>
@@ -14,12 +15,12 @@
 #include <R_ext/Utils.h>
 
 /* some definitions */
+#define ABSTOL      1.0e-2
 #define NULLP       (void *) 0
 #define MAX(a,b)    (((a)>(b)) ? (a) : (b))
 #define MIN(a,b)    (((a)<(b)) ? (a) : (b))
 #define SQR(x)      R_pow_di(x, 2)
 #define DOUBLE_EPS  DBL_EPSILON
-#define ETA_CONV    1.0e-2
 #define repeat      for(;;)
 
 /* dims structure */

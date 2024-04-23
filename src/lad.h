@@ -1,13 +1,11 @@
-/* ID: lad.h, last updated 2023-05-16, F.Osorio */
+/* ID: lad.h, last updated 2023-12-26, F.Osorio */
 
 #ifndef L1PACK_LAD_H
 #define L1PACK_LAD_H
 
 #include "base.h"
 
-/* routines for LAD estimation in linear regression */
-double do_weight(double, double);
-double lad_objective(double *, int);
+/* log-likelihood function for LAD regression */
 double lad_logLik(double *, int);
 
 /* routines for iterative reweighted least squares (IRLS)*/

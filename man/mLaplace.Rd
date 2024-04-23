@@ -22,20 +22,24 @@ rmLaplace(n = 1, center = rep(0, nrow(Scatter)), Scatter = diag(length(center)))
 }
 
 \value{
-  If \code{n = 1} a vector of the same length as \code{center}, otherwise a
-  matrix of \code{n} rows of random vectors.
+  If \code{x} is a matrix with \eqn{n} rows, then \code{dmLaplace} returns a 
+  \eqn{n\times 1}{n x 1} vector considering each row of \code{x} as a copy from 
+  the multivariate Laplace.
+
+  If \code{n = 1}, then \code{rmLaplace} returns a vector of the same length as 
+  \code{center}, otherwise a matrix of \code{n} rows of random vectors.
 }
 
 \details{
-  The multivariate Laplace distribution is a multidimensional extension of the one-dimensional 
-  or univariate symmetric Laplace distribution. There are multiple forms of the multivariate 
-  Laplace distribution. Here, a particular case of the multivarite power exponential distribution 
+  The multivariate Laplace distribution is a multidimensional extension of the univariate 
+  symmetric Laplace distribution. There are multiple forms of the multivariate Laplace 
+  distribution. Here, a particular case of the multivarite power exponential distribution 
   introduced by Gomez et al. (1998) is considered.
 
   The multivariate Laplace distribution with location \eqn{\bold{\mu}} = \code{center} 
   and \eqn{\bold{\Sigma}} = \code{Scatter} has density
   \deqn{
-    f(x) =
+    f(\bold{x}) =
     \frac{\Gamma(k/2)}{\pi^{k/2}\Gamma(k)2^{k+1}}|\bold{\Sigma}|^{-1/2}
     \exp\left\{-\frac{1}{2}[(\bold{x} - \bold{\mu})^T \bold{\Sigma}^{-1} (\bold{x} 
     - \bold{\mu})]^{1/2}\right\}.

@@ -3,7 +3,7 @@
 \title{Confidence intervals from \code{lad} models}
 \description{
   Computes confidence intervals for one or more parameters in a fitted
-  model corresponding to a \code{lad} object.
+  model associated to a \code{lad} object.
 }
 \usage{
 \method{confint}{lad}(object, parm, level = 0.95, ...)
@@ -14,7 +14,7 @@
     either a vector of numbers or a vector of names. If missing, all parameters are
     considered.}
   \item{level}{ the confidence level required.}
-  \item{\dots}{ additional argument(s) for methods.}
+  \item{\dots}{ additional argument(s) for related methods.}
 }
 \value{
   A matrix (or vector) with columns giving lower and upper confidence limits for

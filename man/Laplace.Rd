@@ -4,7 +4,7 @@
 \alias{plaplace}
 \alias{qlaplace}
 \alias{rlaplace}
-\title{The Laplace distribution}
+\title{The symmetric Laplace distribution}
 \description{
   Density, distribution function, quantile function and random generation for the
   Laplace distribution with location parameter \code{location} and scale parameter
@@ -19,21 +19,18 @@ rlaplace(n, location = 0, scale = 1)
 \arguments{
   \item{x, q}{ vector of quantiles.}
   \item{p}{ vector of probabilities.}
-  \item{n}{ number of observations. If \code{length(n) > 1}, the length is taken
-    to be the number required.}
+  \item{n}{ number of observations.}
   \item{location}{ location parameter \eqn{\mu}, which is the mean.}
   \item{scale}{ scale parameter \eqn{\phi}. Scale must be positive.}
   \item{log, log.p}{ logical; if TRUE, probabilities \eqn{p} are given as \eqn{\log(p)}.}
-  \item{lower.tail}{ logical; if TRUE (default), probabilities are \eqn{P[X \le x]},
-    otherwise, \eqn{P[X > x]}.}
+  \item{lower.tail}{ logical; if TRUE (default), probabilities are \eqn{P(X \le x)},
+    otherwise, \eqn{P(X > x)}.}
 }
 \value{
   \code{dlaplace}, \code{plaplace}, and \code{qlaplace} are respectively the density,
   distribution function and quantile function of the Laplace distribution. \code{rlaplace}
-  generates random deviates from the Laplace.
-
-  The length of the result is determined by \code{n} for \code{rlaplace}, and is
-  the maximum of the lengths of the numerical parameters for the other functions.
+  generates random deviates drawn from the Laplace distribution, the length of the result 
+  is determined by \code{n}.
 }
 \details{
   If \code{location} or \code{scale} are not specified, they assume the default
@@ -85,8 +82,8 @@ rlaplace(n, location = 0, scale = 1)
 }
 \examples{
 x <- rlaplace(1000)
-## Q-Q plot for Laplace data against true theoretical distribution:
-qqplot(qlaplace(ppoints(1000)), x, main = "Laplace Q-Q plot",
+## QQ-plot for Laplace data against true theoretical distribution:
+qqplot(qlaplace(ppoints(1000)), x, main = "Laplace QQ-plot",
   xlab = "Theoretical quantiles", ylab = "Sample quantiles")
 abline(c(0,1), col = "red", lwd = 2)
 }

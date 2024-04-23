@@ -24,8 +24,8 @@ l1fit(x, y, intercept = TRUE, tolerance = 1e-07, print.it = TRUE)
   list defining the regression (compare with function \code{\link{lsfit}}).
   \item{coefficients}{ vector of coefficients.}
   \item{residuals}{ residuals from the fit.}
-  \item{message}{ vector of one or two character strings stating whether a non-unique
-    solution is possible, or if the \code{x} matrix was found to be rank deficient.}
+  \item{message}{ character strings stating whether a non-unique solution is possible, 
+  or if the \code{x} matrix was found to be rank deficient.}
 }
 \details{%
   The Barrodale-Roberts algorithm, which is a specialized linear programming

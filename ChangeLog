@@ -1,14 +1,23 @@
-0.41-24 (May 18, 2023)
+0.41-245 (Apr 23, 2024)
+  * Function LaplaceFit for the estimation of mean and covariance in multivariate
+    analysis has been added.
+  * Wilson-Hilferty transformation for goodness of fit under the multivariate 
+    Laplace distribution.
+  * Underlying code of dmLaplace function is now moved to C and computation of 
+    log-density has been corrected.
+  * Estimated EM weights at convergence of the algorithm have been corrected.
+
+0.41-24 (May 19, 2023)
   * Function rmLaplace was modified according to algorithm described by Gomez et 
     al. (1998), doi: 10.1080/03610929808832115
   * Function for the evaluation of the multivariate Laplace distribution density 
     has been added.
   * Minor modifications of dpqr-functions for the univariate Laplace distribution.
 
-0.41-2 (Oct 18, 2022)
+0.41-2 (Oct 19, 2022)
   * Several R and C functions were recoded/improved.
 
-0.41 (Aug 12, 2022)
+0.41 (Aug 15, 2022)
   * Documentation of functions 'confint' and 'vcov' for lad objects were included.
 
 0.40 (Apr 21, 2022)
@@ -23,7 +32,7 @@
   * Added confint and vcov methods for lad objects.
   * Corrected error in computation of the standard error for the coefficients.
 
-0.38.1 (Aug 15, 2017)
+0.38.1 (Aug 16, 2017)
   * Added summary method for lad objects.
   * Authors field at DESCRIPTION file was corrected.
 

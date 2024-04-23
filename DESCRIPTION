@@ -1,17 +1,16 @@
 Package: L1pack
 Type: Package
 Title: Routines for L1 Estimation
-Version: 0.41-24
-Date: 2023-05-18
+Version: 0.41-245
+Date: 2024-04-23
 Authors@R: c(person("Felipe", "Osorio", role = c("aut", "cre"),
                     email = "felipe.osorios@usm.cl",
                     comment = c(ORCID = "0000-0002-4675-5201")),
              person("Tymoteusz", "Wolodzko", role = "aut"))
-Author: Felipe Osorio [aut, cre] (<https://orcid.org/0000-0002-4675-5201>),
-        Tymoteusz Wolodzko [aut]
 Maintainer: Felipe Osorio <felipe.osorios@usm.cl>
 Description: L1 estimation for linear regression using Barrodale and Roberts' method
-    <doi:10.1145/355616.361024> and the EM algorithm <doi:10.1023/A:1020759012226>,
+    <doi:10.1145/355616.361024> and the EM algorithm <doi:10.1023/A:1020759012226>.
+    Estimation of mean and covariance matrix using the multivariate Laplace distribution,
     density, distribution function, quantile function and random number generation
     for univariate and multivariate Laplace distribution <doi:10.1080/03610929808832115>.
 Depends: R(>= 3.5.0), fastmatrix

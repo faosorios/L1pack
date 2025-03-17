@@ -57,16 +57,16 @@ citation("L1pack")
 #> 
 #> To cite package L1pack in publications use:
 #> 
-#>   Osorio, F., Wolodzko, T. (2024). Routines for L1 estimation. R
-#>   package version 0.50. URL: https://github.com/faosorios/L1pack
+#>   Osorio, F., Wolodzko, T. (2025). Routines for L1 estimation. R
+#>   package version 0.52. URL: https://github.com/faosorios/L1pack
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>    title = {Routines for L1 estimation},
 #>    author = {F. Osorio and T. Wolodzko},
-#>    year = {2024},
-#>    note = {R package version 0.50},
+#>    year = {2025},
+#>    note = {R package version 0.52},
 #>    url = {https://github.com/faosorios/L1pack},
 #>   }
 ```

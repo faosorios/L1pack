@@ -17,10 +17,10 @@ Provides routines to perform L1 estimation in linear regression models. Estimati
 
 Latest binaries and sources can be found at the [CRAN package repository](https://cran.r-project.org/package=L1pack):
 
-* [L1pack_0.41-245.tar.gz](https://cran.r-project.org/src/contrib/L1pack_0.41-245.tar.gz) - Package sources
-* [L1pack_0.41-24.zip](https://cran.r-project.org/bin/windows/contrib/4.3/L1pack_0.41-24.zip) - Windows binaries (R-release)
-* [L1pack_0.41-24.tgz](https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.3/L1pack_0.41-24.tgz) - MacOS binaries (R-release, arm64)
-* [L1pack_0.41-24.tgz](https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.3/L1pack_0.41-24.tgz) - MacOS binaries (R-release, x86_64)
+* [L1pack_0.50.tar.gz](https://cran.r-project.org/src/contrib/L1pack_0.50.tar.gz) - Package sources
+* [L1pack_0.50.zip](https://cran.r-project.org/bin/windows/contrib/4.4/L1pack_0.50.zip) - Windows binaries (R-release)
+* [L1pack_0.50.tgz](https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.4/L1pack_0.50.tgz) - MacOS binaries (R-release, arm64)
+* [L1pack_0.50.tgz](https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.4/L1pack_0.50.tgz) - MacOS binaries (R-release, x86_64)
 
 ## Installation
 
@@ -46,6 +46,7 @@ The methods implemented in `L1pack` include:
 -   Estimation of center and Scatter matrix using the multivariate Laplace distribution.
 -   Density, distribution function, quantile function and random number generation for univariate Laplace distribution.
 -   Density and random number generation for the multivariate Laplace distribution (Gomez et al., 1998).
+-   Computation of the generalized spatial median estimator as defined by Rao (1988)
 
 ## Citation
 
@@ -57,7 +58,7 @@ citation("L1pack")
 #> To cite package L1pack in publications use:
 #> 
 #>   Osorio, F., Wolodzko, T. (2024). Routines for L1 estimation. R
-#>   package version 0.41-245. URL: http://l1pack.mat.utfsm.cl
+#>   package version 0.50. URL: https://github.com/faosorios/L1pack
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -65,21 +66,20 @@ citation("L1pack")
 #>    title = {Routines for L1 estimation},
 #>    author = {F. Osorio and T. Wolodzko},
 #>    year = {2024},
-#>    note = {R package version 0.41-245},
-#>    url = {http://l1pack.mat.utfsm.cl},
+#>    note = {R package version 0.50},
+#>    url = {https://github.com/faosorios/L1pack},
 #>   }
 ```
 ## Providing Feedback
 
-Please report any bugs/suggestions/improvements to [Felipe Osorio](http://fosorios.mat.utfsm.cl/). 
+Please report any bugs/suggestions/improvements to [Felipe Osorio](https://faosorios.github.io/). 
 If you find these routines useful or not then please let me know. Also, acknowledgement 
 of the use of the routines is appreciated.
 
 ## About the Authors
 
-Felipe Osorio is an Assistant Professor at [Department of Mathematics](http://www.mat.utfsm.cl/), 
-[Universidad Tecnica Federico Santa Maria](http://www.usm.cl/), Chile.
-* Webpage: [fosorios.mat.utfsm.cl](http://fosorios.mat.utfsm.cl/)
+Felipe Osorio is an applied statistician and creator of several R packages
+* Webpage: [faosorios.github.io](https://faosorios.github.io/)
 
 Tymoteusz Wolodzko is Software Engineer and Machine Learning Engineer. Also is elected moderator 
 for [CrossValidated.com](https://stats.stackexchange.com/)

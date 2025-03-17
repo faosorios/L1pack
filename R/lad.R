@@ -168,15 +168,15 @@ function(x, y, tol = 1e-7, maxiter = 200)
   if (z$iter < maxiter)
     converged <- TRUE
   eps <- .Machine$double.eps^.35
-  basic <- (1:n)[abs(z$residuals) < eps * z$sad]
+  dev <- z$residuals
+  test <- abs(dev) < eps * z$sad
+  weights <- ifelse(test, 1.0, eps / abs(dev))
+  basic <- (1:n)[test]
   msg <- character(0)
   if (length(basic) == 0) {
     basic <- NULL
     msg <- "method was unable to determine basic observations"
   }
-
-  # 'final' EM weights
-  weights <- z$scale * z$weights / sqrt(2)
 
   # creating the output object
   out <- list(coefficients = z$coef, scale = z$scale, residuals = z$residuals,

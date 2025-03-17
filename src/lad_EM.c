@@ -1,4 +1,4 @@
-/* ID: lad_EM.c, last updated 2024-01-16, F.Osorio */
+/* ID: lad_EM.c, last updated 2024-09-07, F.Osorio */
 
 #include "base.h"
 #include "interface.h"
@@ -11,12 +11,12 @@ static double lad_objective(double *, int);
 
 static double
 do_weight(double residual, double eps)
-{ /* weighting strategy due to Phillips (2002) */
+{ /* weighting strategy based on Phillips (2002) */
   double ans, dev;
 
   dev = fabs(residual);
   if (dev < eps)
-    ans = 1.0;        /* basic observations */
+    ans = 1.0;        /* basic observation */
   else
     ans = 1.0 / dev;  /* 'EM' weights */
   return ans;
@@ -63,8 +63,8 @@ IRLS(double *x, double *y, int n, int p, double *coef, double *scale, double *sa
   double conv, eps = R_pow(DOUBLE_EPS, .5), SAD, newSAD, *incr, *working;
 
   /* initialization */
-  incr    = (double *) Calloc(p, double);
-  working = (double *) Calloc(n, double);
+  incr    = (double *) R_Calloc(p, double);
+  working = (double *) R_Calloc(n, double);
   SAD = lad_objective(residuals, n);
 
   /* main loop */
@@ -82,12 +82,12 @@ IRLS(double *x, double *y, int n, int p, double *coef, double *scale, double *sa
     /* eval convergence */
     conv = fabs((newSAD - SAD) / (newSAD + ABSTOL));
     if (conv < tolerance) { /* successful completion */
-      Free(incr); Free(working);
+      R_Free(incr); R_Free(working);
       return iter;
     }
     SAD = newSAD;
   }
-  Free(incr); Free(working);
+  R_Free(incr); R_Free(working);
 
   return (iter - 1);
 }
@@ -100,8 +100,8 @@ IRLS_increment(double *x, double *y, int n, int p, double *coef, double *incr,
   double stepsize = 1.0, wts, *z, *qraux;
 
   /* initialization */
-  z     = (double *) Calloc(n * p, double);
-  qraux = (double *) Calloc(p, double);
+  z     = (double *) R_Calloc(n * p, double);
+  qraux = (double *) R_Calloc(p, double);
 
   /* transformed model matrix and working residuals */
   for (int i = 0; i < n; i++) {
@@ -143,5 +143,5 @@ IRLS_increment(double *x, double *y, int n, int p, double *coef, double *incr,
     fitted[i] /= wts;
     residuals[i] = y[i] - fitted[i];
   }
-  Free(z); Free(qraux);
+  R_Free(z); R_Free(qraux);
 }

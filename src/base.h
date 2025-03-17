@@ -1,8 +1,11 @@
-/* ID: base.h, last updated 2023-12-27, F.Osorio */
+/* ID: base.h, last updated 2024-05-17, F.Osorio */
 
 #ifndef L1PACK_BASE_H
 #define L1PACK_BASE_H
 
+#ifndef  USE_FC_LEN_T
+# define USE_FC_LEN_T
+#endif
 #include <R.h>
 #include <Rconfig.h>
 #include <Rmath.h>

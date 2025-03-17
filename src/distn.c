@@ -1,4 +1,4 @@
-/* ID: distn.c, last updated 2023-12-28, F.Osorio */
+/* ID: distn.c, last updated 2024-09-07, F.Osorio */
 
 #include "base.h"
 #include "interface.h"
@@ -103,8 +103,8 @@ pdf_mlaplace(double *y, double *x, int *nobs, int *vars, double *center, double 
   int errcode = 0, job = 0, n = *nobs, p = *vars;
   double *Root, *z, D2, log_pdf;
 
-  Root = (double *) Calloc(p * p, double);
-  z    = (double *) Calloc(p, double);
+  Root = (double *) R_Calloc(p * p, double);
+  z    = (double *) R_Calloc(p, double);
 
   copy_lower(Root, p, Scatter, p, p);
   chol_decomp(Root, p, p, job, &errcode);
@@ -120,5 +120,5 @@ pdf_mlaplace(double *y, double *x, int *nobs, int *vars, double *center, double 
     y[i] = log_pdf - 0.5 * sqrt(D2);
   }
 
-  Free(Root); Free(z);
+  R_Free(Root); R_Free(z);
 }

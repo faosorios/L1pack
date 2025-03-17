@@ -1,4 +1,4 @@
-/* ID: RNG.c, last updated 2023-05-17, F.Osorio */
+/* ID: RNG.c, last updated 2024-09-07, F.Osorio */
 
 #include "base.h"
 #include "interface.h"
@@ -15,7 +15,7 @@ dims(int *pdims)
 { /* dims object */
   DIMS ans;
 
-  ans = (DIMS) Calloc(1, DIMS_struct);
+  ans = (DIMS) R_Calloc(1, DIMS_struct);
   ans->n = (int) pdims[0];
   ans->p = (int) pdims[1];
   return ans;
@@ -24,7 +24,7 @@ dims(int *pdims)
 static void
 dims_free(DIMS this)
 { /* destructor for a dims object */
-  Free(this);
+  R_Free(this);
 }
 
 /* ========================================================================== *

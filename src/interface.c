@@ -1,4 +1,4 @@
-/* ID: interface.c, last updated 2024-01-03, F.Osorio */
+/* ID: interface.c, last updated 2024-05-16, F.Osorio */
 
 #include "base.h"
 #include "interface.h"
@@ -30,6 +30,12 @@ double
 norm_two(double *x, int n, int inc)
 { /* sqrt(sum(x^2)) */
   return BLAS1_norm_two(x, inc, n);
+}
+
+double
+norm_sqr(double *x, int n, int inc)
+{ /* sum(x * x) */
+  return FM_norm_sqr(x, inc, n);
 }
 
 void
@@ -78,6 +84,24 @@ void
 mult_triangular_mat(double alpha, double *a, int lda, int nrow, int ncol, char *side, char *uplo, char *trans, char *diag, double *y, int ldy)
 { /* wrapper to BLAS-3 routine 'DTRMM' */
   BLAS3_trmm(alpha, a, lda, nrow, ncol, side, uplo, trans, diag, y, ldy);
+}
+
+void
+rank1_update(double *a, int lda, int nrow, int ncol, double alpha, double *x, double *y)
+{ /* rank 1 update: a <- alpha * x %*% t(y) + a */
+  FM_rank1_update(a, lda, nrow, ncol, alpha, x, y);
+}
+
+void
+setzero(double *y, int ldy, int nrow, int ncol)
+{ /* y[,] <- 0 */
+  FM_setzero(y, ldy, nrow, ncol);
+}
+
+void
+solve_triangular_mat(double alpha, double *a, int lda, int nrow, int ncol, char *side, char *uplo, char *trans, char *diag, double *y, int ldy)
+{ /* wrapper to BLAS-3 routine 'DTRSM' */
+  BLAS3_trsm(alpha, a, lda, nrow, ncol, side, uplo, trans, diag, y, ldy);
 }
 
 /* ========================================================================== *
@@ -143,6 +167,12 @@ center_online(double *x, int n, int p, double *weights, double *center)
   FM_online_center(x, n, p, weights, center);
 }
 
+void
+mediancenter(double *x, int n, int p, double *median, int *iter)
+{ /* mediancenter for a sample of multivariate observations */
+  FM_mediancenter(x, n, p, median, iter);
+}
+
 /* ========================================================================== *
  * Mahalanobis distance
  * ========================================================================== */
@@ -162,4 +192,14 @@ void
 WH_Laplace(double *distances, int n, int p, double *z)
 { /* Wilson-Hilferty transformation for multivariate Laplace deviates */
   FM_WH_Laplace(distances, n, p, z);
+}
+
+/* ========================================================================== *
+ * Misc
+ * ========================================================================== */
+
+void
+print_mat(double *x, int ldx, int nrow, int ncol, char *msg)
+{ /* print matrix and message */
+  FM_print_mat(x, ldx, nrow, ncol, msg);
 }

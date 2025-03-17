@@ -15,6 +15,9 @@ extern void lad_EM(double *, double *, int *, int *, double *, double *, double 
 /* multivariate Laplace estimation */
 extern void Laplace_fitter(double *, int *, int *, double *, double *, double *, double *, double *, double *, int *);
 
+/* generalized spatial median */
+extern void spatial_median(double *, int *, int *, double *, double *, double *, double *, double *, double *, int *, int *);
+
 /* dpqr-functions for the Laplace distribution */
 extern void d_laplace(int *, double *, double *, double *, int *, double *, int *, int *);
 extern void p_laplace(int *, double *, double *, double *, int *, double *, int *, int *, int *);
@@ -39,6 +42,7 @@ static const R_CMethodDef CEntries[]  = {
   CALLDEF(Laplace_fitter,          10),
   CALLDEF(pdf_mlaplace,             6),
   CALLDEF(RNG_mlaplace,             4),
+  CALLDEF(spatial_median,          11),
   CALLDEF(Wilson_Hilferty_Laplace,  4),
   {NULL, NULL, 0}
 };

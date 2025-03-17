@@ -1,4 +1,4 @@
-/* ID: laplace_fitter.c, last updated 2023-12-31, F.Osorio */
+/* ID: laplace_fitter.c, last updated 2024-09-07, F.Osorio */
 
 #include "base.h"
 #include "interface.h"
@@ -26,10 +26,10 @@ void
 Laplace_fitter(double *x, int *nobs, int *vars, double *center, double *Scatter, double *distances, 
   double *weights, double *logLik, double *tolerance, int *maxiter)
 { /* fits the multivariate Laplace model considering an unstructured covariance matrix */
-  int errcode = 0, iter = 0, job = 0, n = *nobs, p = *vars, maxit = *maxiter, npars;
+  int errcode = 0, iter = 0, job = 0, n = *nobs, p = *vars, maxit = *maxiter;
   double conv, fnc = *logLik, newfnc, *Root, tol = *tolerance;
 
-  Root  = (double *) Calloc(p * p, double);
+  Root  = (double *) R_Calloc(p * p, double);
 
   /* Cholesky decomposition of Scatter matrix */
   copy_lower(Root, p, Scatter, p, p);
@@ -73,7 +73,7 @@ Laplace_fitter(double *x, int *nobs, int *vars, double *center, double *Scatter,
     error("Cholesky decomposition in Laplace fitter gave code %d", errcode);
   *logLik = logLik_Laplace(distances, n, p, Root);
 
-  Free(Root);
+  R_Free(Root);
 }
 
 static void
@@ -81,7 +81,7 @@ E_step(double *x, int n, int p, double *center, double *Root, double *distances,
 { /* computation of Mahalanobis distances and weights for the Laplace distribution */
   double *z;
 
-  z = (double *) Calloc(p, double);
+  z = (double *) R_Calloc(p, double);
 
   for (int i = 0; i < n; i++) {
     copy_vec(z, 1, x + i, n, p);
@@ -89,7 +89,7 @@ E_step(double *x, int n, int p, double *center, double *Root, double *distances,
     weights[i] = do_weight((double) p, distances[i]);
   }
 
-  Free(z);
+  R_Free(z);
 }
 
 static double 

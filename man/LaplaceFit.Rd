@@ -1,9 +1,9 @@
 \name{LaplaceFit}
 \alias{LaplaceFit}
 
-\title{Estimation of mean and covariance using the multivariate Laplace distribution}
+\title{Estimation of location and scatter using the multivariate Laplace distribution}
 \description{
-  Estimates the mean vector and covariance matrix assuming the data came from a multivariate
+  Estimates the location vector and scatter matrix assuming the data came from a multivariate
   Laplace distribution.
 }
 \usage{

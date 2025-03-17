@@ -47,5 +47,11 @@ lad(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 200,
 \examples{
 fm <- lad(stack.loss ~ ., data = stackloss, method = "BR")
 summary(fm)
+
+data(ereturns)
+fm <- lad(m.marietta ~ CRSP, data = ereturns, method = "EM")
+summary(fm)
+# basic observations
+fm$basic
 }
 \keyword{regression}

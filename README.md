@@ -7,7 +7,7 @@
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/L1pack)](https://cran.r-project.org/package=L1pack)
 <!-- badges: end -->
 
-Provides routines to perform L1 estimation in linear regression models. Estimation of mean and covariance matrix using the multivariate Laplace distribution, and multivariate random number generation for the Laplace distribution. A basic set of methods for printing the results is also available.
+**L1pack** provides routines to perform L1 estimation in linear regression models, estimation of mean and covariance matrix using the multivariate Laplace distribution, and multivariate random number generation for the Laplace distribution. A basic set of methods for printing the results is also available.
 
 ## Reference Manual
 
@@ -17,10 +17,10 @@ Provides routines to perform L1 estimation in linear regression models. Estimati
 
 Latest binaries and sources can be found at the [CRAN package repository](https://cran.r-project.org/package=L1pack):
 
-* [L1pack_0.50.tar.gz](https://cran.r-project.org/src/contrib/L1pack_0.50.tar.gz) - Package sources
+* [L1pack_0.52.tar.gz](https://cran.r-project.org/src/contrib/L1pack_0.52.tar.gz) - Package sources
 * [L1pack_0.50.zip](https://cran.r-project.org/bin/windows/contrib/4.4/L1pack_0.50.zip) - Windows binaries (R-release)
-* [L1pack_0.50.tgz](https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.4/L1pack_0.50.tgz) - MacOS binaries (R-release, arm64)
-* [L1pack_0.50.tgz](https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.4/L1pack_0.50.tgz) - MacOS binaries (R-release, x86_64)
+* [L1pack_0.52.tgz](https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.4/L1pack_0.52.tgz) - MacOS binaries (R-release, arm64)
+* [L1pack_0.52.tgz](https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.4/L1pack_0.52.tgz) - MacOS binaries (R-release, x86_64)
 
 ## Installation
 
@@ -29,13 +29,18 @@ Install `L1pack` from CRAN using.
 ``` r
 install.packages("L1pack")
 ```
-
 You can install the latest development version from github with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("faosorios/L1pack")
 ```
+Alternatively, you can download the source as a tarball or as a zip file. Unpack the tarball or zipfile (thereby creating a directory named, L1pack) and install the package source by executing (at the console prompt)
+
+``` r
+R CMD INSTALL L1pack
+```
+Next, you can load the package by using the command `library(L1pack)`
 
 ## Methods
 
@@ -70,6 +75,10 @@ citation("L1pack")
 #>    url = {https://github.com/faosorios/L1pack},
 #>   }
 ```
+## Some papers using L1pack
+- Plate, M., Bernstein, R., Hoppe, A., Bienefeld, K. (2019). Comparison of infinitesimal and finite locus models for long-term breeding simulations with direct and maternal effects at the example of honeybess. [PLOS ONE](https://doi.org/10.1371/journal.pone.0213270) 14, e0213270.
+- Wang, W., Yu, P., Lin, L., Tong, T. (2019). Robust estimation of derivatives using locally weighted least absolute deviation regression. [Journal of Machine Learning Research](http://jmlr.org/papers/v20/17-340.html) 20 (60), 1-49.
+
 ## Providing Feedback
 
 Please report any bugs/suggestions/improvements to [Felipe Osorio](https://faosorios.github.io/). 

@@ -78,6 +78,7 @@ citation("L1pack")
 ## Some papers using L1pack
 - Plate, M., Bernstein, R., Hoppe, A., Bienefeld, K. (2019). Comparison of infinitesimal and finite locus models for long-term breeding simulations with direct and maternal effects at the example of honeybess. [PLOS ONE](https://doi.org/10.1371/journal.pone.0213270) 14, e0213270.
 - Wang, W., Yu, P., Lin, L., Tong, T. (2019). Robust estimation of derivatives using locally weighted least absolute deviation regression. [Journal of Machine Learning Research](http://jmlr.org/papers/v20/17-340.html) 20 (60), 1-49.
+- VandenHeuvel, D., Wu, J., Wang, Y.G. (2023). Robust regression for electricity demand forecast against cyberattacks. [International Journal of Forecasting](https://doi.org/10.1016/j.ijforecast.2022.10.004) 39, 1573-1592
 
 ## Providing Feedback
 

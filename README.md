@@ -19,7 +19,7 @@
 Latest binaries and sources can be found at the [CRAN package repository](https://cran.r-project.org/package=L1pack):
 
 * [L1pack_0.52.tar.gz](https://cran.r-project.org/src/contrib/L1pack_0.52.tar.gz) - Package sources
-* [L1pack_0.50.zip](https://cran.r-project.org/bin/windows/contrib/4.4/L1pack_0.50.zip) - Windows binaries (R-release)
+* [L1pack_0.52.zip](https://cran.r-project.org/bin/windows/contrib/4.4/L1pack_0.52.zip) - Windows binaries (R-release)
 * [L1pack_0.52.tgz](https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.4/L1pack_0.52.tgz) - MacOS binaries (R-release, arm64)
 * [L1pack_0.52.tgz](https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.4/L1pack_0.52.tgz) - MacOS binaries (R-release, x86_64)
 

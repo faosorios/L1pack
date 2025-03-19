@@ -76,10 +76,12 @@ citation("L1pack")
 #>    url = {https://github.com/faosorios/L1pack},
 #>   }
 ```
-## Some papers using L1pack
+## Papers using L1pack
+- Guest, L.M., McCabe, J., O'Halloran, C., Rana, M., Sun, W., Rudoler, D. (2024). Perspectives on work in the continuing care sector during and after the COVID-19 pandemic: A mixed-method design. [Journal of Nursing Management](https://doi.org/10.1155/2024/7187263), ID 7187263.
+- Radojicic, U., Nordhausen, K. (2023). [Least Absolute Value](https://doi.org/10.1007/978-3-030-85040-1_177). In: Daya Sagar, B.S., Cheng, Q., McKinley, J., Agterberg, F. (Eds) Encyclopedia of Mathematical Geosciences. Encyclopedia of Earth Sciences Series. Springer, Cham. 
+- VandenHeuvel, D., Wu, J., Wang, Y.G. (2023). Robust regression for electricity demand forecast against cyberattacks. [International Journal of Forecasting](https://doi.org/10.1016/j.ijforecast.2022.10.004) 39, 1573-1592.
 - Plate, M., Bernstein, R., Hoppe, A., Bienefeld, K. (2019). Comparison of infinitesimal and finite locus models for long-term breeding simulations with direct and maternal effects at the example of honeybess. [PLOS ONE](https://doi.org/10.1371/journal.pone.0213270) 14, e0213270.
 - Wang, W., Yu, P., Lin, L., Tong, T. (2019). Robust estimation of derivatives using locally weighted least absolute deviation regression. [Journal of Machine Learning Research](http://jmlr.org/papers/v20/17-340.html) 20 (60), 1-49.
-- VandenHeuvel, D., Wu, J., Wang, Y.G. (2023). Robust regression for electricity demand forecast against cyberattacks. [International Journal of Forecasting](https://doi.org/10.1016/j.ijforecast.2022.10.004) 39, 1573-1592
 
 ## Providing Feedback
 

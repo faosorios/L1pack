@@ -4,10 +4,11 @@
 
 <!-- badges: start -->
 [![CRAN status](http://www.r-pkg.org/badges/version/L1pack)](https://cran.r-project.org/package=L1pack)
+[![CRAN total downloads](https://cranlogs.r-pkg.org/badges/grand-total/L1pack)](https://cranlogs.r-pkg.org/badges/grand-total/L1pack)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/L1pack)](https://cran.r-project.org/package=L1pack)
 <!-- badges: end -->
 
-**L1pack** provides routines to perform L1 estimation in linear regression models, estimation of mean and covariance matrix using the multivariate Laplace distribution, and multivariate random number generation for the Laplace distribution. A basic set of methods for printing the results is also available.
+`L1pack` provides routines to perform L1 estimation in linear regression models, estimation of mean and covariance matrix using the multivariate Laplace distribution, and multivariate random number generation for the Laplace distribution. A basic set of methods for printing the results is also available.
 
 ## Reference Manual
 

@@ -46,12 +46,12 @@ Next, you can load the package by using the command `library(L1pack)`
 
 The methods implemented in `L1pack` include:
 
--   Barrodale and Roberts (1974) procedure for L1 estimation in linear regression.
--   EM algorithm for LAD estimation in linear regression (Phillips, 2002).
+-   [Barrodale and Roberts (1974)](https://doi.org/10.1145/355616.361024) procedure for L1 estimation in linear regression.
+-   EM algorithm for LAD estimation in linear regression ([Phillips, 2002](https://doi.org/10.1023/A:1020759012226)).
 -   Estimation of center and Scatter matrix using the multivariate Laplace distribution.
 -   Density, distribution function, quantile function and random number generation for univariate Laplace distribution.
--   Density and random number generation for the multivariate Laplace distribution (Gomez et al., 1998).
--   Computation of the generalized spatial median estimator as defined by Rao (1988)
+-   Density and random number generation for the multivariate Laplace distribution ([Gomez et al., 1998](https://doi.org/10.1080/03610929808832115)).
+-   Computation of the generalized spatial median estimator as defined by [Rao (1988)](https://doi.org/10.1007/0-8176-4487-3_7)
 
 ## Citation
 

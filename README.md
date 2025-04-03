@@ -59,21 +59,21 @@ To cite package `L1pack` in publications use:
 
 ``` r
 citation("L1pack")
-#> 
-#> To cite package L1pack in publications use:
-#> 
-#>   Osorio, F., Wolodzko, T. (2025). Routines for L1 estimation. R
-#>   package version 0.52. URL: https://github.com/faosorios/L1pack
-#> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Manual{,
-#>    title = {Routines for L1 estimation},
-#>    author = {F. Osorio and T. Wolodzko},
-#>    year = {2025},
-#>    note = {R package version 0.52},
-#>    url = {https://github.com/faosorios/L1pack},
-#>   }
+ 
+To cite package L1pack in publications use:
+ 
+  Osorio, F., Wolodzko, T. (2025). Routines for L1 estimation. R
+  package version 0.52. URL: https://github.com/faosorios/L1pack
+ 
+A BibTeX entry for LaTeX users is
+ 
+  @Manual{,
+   title = {Routines for L1 estimation},
+   author = {F. Osorio and T. Wolodzko},
+   year = {2025},
+   note = {R package version 0.52},
+   url = {https://github.com/faosorios/L1pack},
+  }
 ```
 ## Papers using L1pack
 - Guest, L.M., McCabe, J., O'Halloran, C., Rana, M., Sun, W., Rudoler, D. (2024). Perspectives on work in the continuing care sector during and after the COVID-19 pandemic: A mixed-method design. [Journal of Nursing Management](https://doi.org/10.1155/2024/7187263), ID 7187263.

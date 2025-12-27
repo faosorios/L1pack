@@ -9,18 +9,18 @@
 
 `L1pack` provides routines to perform L1 estimation in linear regression models, estimation of mean and covariance matrix using the multivariate Laplace distribution, and multivariate random number generation for the Laplace distribution. A basic set of methods for printing the results is also available.
 
-## Reference Manual
-
-* [L1pack.pdf](https://cran.r-project.org/web/packages/L1pack/L1pack.pdf)
-
 ## Resources
 
 Latest binaries and sources can be found at the [CRAN package repository](https://cran.r-project.org/package=L1pack):
 
-* [L1pack_0.52.tar.gz](https://cran.r-project.org/src/contrib/L1pack_0.52.tar.gz) - Package sources
-* [L1pack_0.52.zip](https://cran.r-project.org/bin/windows/contrib/4.4/L1pack_0.52.zip) - Windows binaries (R-release)
-* [L1pack_0.52.tgz](https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.4/L1pack_0.52.tgz) - MacOS binaries (R-release, arm64)
-* [L1pack_0.52.tgz](https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.4/L1pack_0.52.tgz) - MacOS binaries (R-release, x86_64)
+* [L1pack_0.60.tar.gz](https://cran.r-project.org/src/contrib/L1pack_0.60.tar.gz) - Package sources
+* [L1pack_0.60.zip](https://cran.r-project.org/bin/windows/contrib/4.5/L1pack_0.60.zip) - Windows binaries (R-release)
+* [L1pack_0.60.tgz](https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/L1pack_0.60.tgz) - MacOS binaries (R-release, arm64)
+* [L1pack_0.60.tgz](https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.5/L1pack_0.60.tgz) - MacOS binaries (R-release, x86_64)
+
+## Reference Manual
+
+* [PDF manual](https://cran.r-project.org/web/packages/L1pack/L1pack.pdf) | [HTML manual](https://cran.r-project.org/web/packages/L1pack/refman/L1pack.html)
 
 ## Installation
 
@@ -63,7 +63,7 @@ citation("L1pack")
 To cite package L1pack in publications use:
  
   Osorio, F., Wolodzko, T. (2025). Routines for L1 estimation. R
-  package version 0.52. URL: https://github.com/faosorios/L1pack
+  package version 0.60. URL: https://github.com/faosorios/L1pack
  
 A BibTeX entry for LaTeX users is
  
@@ -71,7 +71,7 @@ A BibTeX entry for LaTeX users is
    title = {Routines for L1 estimation},
    author = {F. Osorio and T. Wolodzko},
    year = {2025},
-   note = {R package version 0.52},
+   note = {R package version 0.60},
    url = {https://github.com/faosorios/L1pack},
   }
 ```

@@ -1,10 +1,10 @@
-/* ID: spatial_median.c, last updated 2024-09-07, F.Osorio */
+/* ID: spatial_median.c, last updated 2025-06-18, F.Osorio */
 
 #include "base.h"
 #include "interface.h"
 
 /* static functions.. */
-static double do_weight(double);
+static double Kotz_weight(double);
 static void stage_center(double *, int, int, double *, double *, int *);
 static void stage_weights(double *, int, int, double *, double *, double *, double *);
 static void stage_Scatter(double *, int, int, double *, double *, double *);
@@ -12,7 +12,7 @@ static double logLik_Kotz(double *, int, int, double *);
 /* ..end declarations */
 
 static double
-do_weight(double distance) 
+Kotz_weight(double distance) 
 { /* Kotz-type weight */
   double wts;
   wts = 1.0 / sqrt(distance);
@@ -22,7 +22,9 @@ do_weight(double distance)
 void
 spatial_median(double *x, int *nobs, int *vars, double *median, double *Scatter, double *distances, 
   double *weights, double *logLik, double *tolerance, int *maxiter, int *iterations)
-{ /* fits the multivariate Laplace model considering an unstructured covariance matrix */
+{ /* fits the multivariate Kotz-type distribution considering an unstructured covariance matrix 
+   * following the algorithm proposed by Naik & Plungpongpun (2006). Advances in Distribution Theory, 
+   * Order Statistics, and Inference, 111-124. doi: 10.1007/0-8176-4487-3_7 */
   int errcode = 0, iter = 0, inner = 0, job = 0, n = *nobs, p = *vars, maxit = *maxiter;
   double conv, fnc = *logLik, newfnc, *Root, tol = *tolerance;
 
@@ -100,7 +102,7 @@ stage_weights(double *x, int n, int p, double *median, double *Root, double *dis
   for (int i = 0; i < n; i++) {
     copy_vec(z, 1, x + i, n, p);
     distances[i] = mahalanobis(z, p, median, Root);
-    weights[i] = do_weight(distances[i]);
+    weights[i] = Kotz_weight(distances[i]);
   }
 
   R_Free(z);
@@ -108,7 +110,7 @@ stage_weights(double *x, int n, int p, double *median, double *Root, double *dis
 
 static void
 stage_Scatter(double *x, int n, int p, double *weights, double *median, double *Scatter)
-{ /* compute the restricted Scatter estimate */
+{ /* compute the MLE of Scatter matrix for the Kotz-type distribution */
   double *z, wts;
 
   /* initialization */

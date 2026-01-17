@@ -5,12 +5,12 @@
 #include "lad.h"
 
 /* static functions.. */
-static double do_weight(double, double);
+static double weight_1D(double, double);
 static double lad_objective(double *, int);
 /* ..end declarations */
 
 static double
-do_weight(double residual, double eps)
+weight_1D(double residual, double eps)
 { /* weighting strategy based on Phillips (2002) */
   double ans, dev;
 
@@ -28,7 +28,7 @@ lad_EM(double *y, double *x, int *nobs, int *vars, double *coef, double *scale,
   double *tolerance, int *maxiter)
 { /* lad_EM uses an EM algorithm based on iteratively reweighted least
    * squares (IRLS) scheme to approximate the LAD solution.
-   * Stat. Comput. 12, 281-285, 2002. doi: 10.1023/A:1020759012226 */
+   * Phillips (2002). Stat. Comput. 12, 281-285. doi: 10.1023/A:1020759012226 */
   int iter = 0, n = *nobs, p = *vars, maxit = *maxiter;
   double tol = *tolerance;
 
@@ -71,7 +71,7 @@ IRLS(double *x, double *y, int n, int p, double *coef, double *scale, double *sa
   for (iter = 1; iter <= maxiter; iter++) {
     /* E-step */
     for (int i = 0; i < n; i++)
-      weights[i] = do_weight(residuals[i], eps);
+      weights[i] = weight_1D(residuals[i], eps);
 
     /* M-step */
     IRLS_increment(x, y, n, p, coef, incr, working, fitted, residuals, weights);

@@ -2,14 +2,9 @@
 
 #include "base.h"
 #include "interface.h"
+#include "lad.h"
 
-/* static functions.. */
-static double do_weight(double, double);
-static void E_step(double *, int, int, double *, double *, double *, double *);
-static double logLik_Laplace(double *, int, int, double *);
-/* ..end declarations */
-
-static double
+double
 do_weight(double length, double distance) 
 { /* multivariate Laplace weight */
   double d, ratio, wts, x;
@@ -25,7 +20,9 @@ do_weight(double length, double distance)
 void
 Laplace_fitter(double *x, int *nobs, int *vars, double *center, double *Scatter, double *distances, 
   double *weights, double *logLik, double *tolerance, int *maxiter)
-{ /* fits the multivariate Laplace model considering an unstructured covariance matrix */
+{ /* fits the multivariate Laplace model considering an unstructured covariance matrix 
+   * based on the EM algorithm proposed by Yavuz & Arslan (2018). Stat Papers 59, 271-289. 
+   * doi: 10.1007/s00362-016-0763-x */
   int errcode = 0, iter = 0, job = 0, n = *nobs, p = *vars, maxit = *maxiter;
   double conv, fnc = *logLik, newfnc, *Root, tol = *tolerance;
 
@@ -76,7 +73,7 @@ Laplace_fitter(double *x, int *nobs, int *vars, double *center, double *Scatter,
   R_Free(Root);
 }
 
-static void
+void
 E_step(double *x, int n, int p, double *center, double *Root, double *distances, double *weights)
 { /* computation of Mahalanobis distances and weights for the Laplace distribution */
   double *z;
@@ -92,7 +89,7 @@ E_step(double *x, int n, int p, double *center, double *Root, double *distances,
   R_Free(z);
 }
 
-static double 
+double 
 logLik_Laplace(double *distances, int n, int p, double *Root)
 { /* evaluate the Laplace log-likelihood */
   double accum = 0.0, val;

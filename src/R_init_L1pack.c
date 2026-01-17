@@ -1,4 +1,4 @@
-/* ID: R_init_L1pack.c, last updated 2024-01-03, F.Osorio */
+/* ID: R_init_L1pack.c, last updated 2025-06-23, F.Osorio */
 
 #include "base.h"
 #include "lad.h"
@@ -14,6 +14,10 @@ extern void lad_EM(double *, double *, int *, int *, double *, double *, double 
 
 /* multivariate Laplace estimation */
 extern void Laplace_fitter(double *, int *, int *, double *, double *, double *, double *, double *, double *, int *);
+extern void fitter_EQUAL(double *, int *, int *, double *, double *, double *, double *, double *, double *, double *, int *);
+
+/* kernel U-statistics for asymptotic variance estimation of CCC */
+void F77_NAME(rho1_ustat)(double *, double *, int *, double *, double *);
 
 /* generalized spatial median */
 extern void spatial_median(double *, int *, int *, double *, double *, double *, double *, double *, double *, int *, int *);
@@ -40,6 +44,7 @@ static const R_CMethodDef CEntries[]  = {
   CALLDEF(lad_BR,                  14),
   CALLDEF(lad_EM,                  13),
   CALLDEF(Laplace_fitter,          10),
+  CALLDEF(fitter_EQUAL,            11),
   CALLDEF(pdf_mlaplace,             6),
   CALLDEF(RNG_mlaplace,             4),
   CALLDEF(spatial_median,          11),
@@ -50,6 +55,7 @@ static const R_CMethodDef CEntries[]  = {
 /* registering F77 symbols */
 static const R_FortranMethodDef F77Entries[] = {
   F77DEF(l1,              10),
+  F77DEF(rho1_ustat,       5),
   {NULL, NULL, 0}
 };
 

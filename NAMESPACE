@@ -11,15 +11,15 @@ importFrom("graphics",
            abline, mtext, par, plot, points, strheight, strwidth, text, title)
 
 importFrom("stats", # some S3 generics for which we define methods
-           .checkMFClasses, .getXlevels, coef, delete.response, fitted, lsfit,
-           model.frame, model.matrix, model.response, na.fail, na.omit, na.pass, 
-           pnorm, qnorm, qqnorm, quantile, residuals, runif, simulate, terms, vcov)
+           .checkMFClasses, .getXlevels, coef, delete.response, fitted, integrate, 
+           lsfit, model.frame, model.matrix, model.response, na.fail, na.omit, na.pass, 
+           pnorm, qnorm, qqnorm, quantile, residuals, runif, simulate, terms, var, vcov)
 
 importFrom("utils", 
            setTxtProgressBar, txtProgressBar)
 
 ## Our Exports:
-export(dlaplace, dmLaplace, envelope.Laplace, l1fit, lad, lad.fit, lad.fit.BR, 
+export(dlaplace, dmLaplace, envelope.Laplace, l1ccc, l1fit, lad, lad.fit, lad.fit.BR, 
        lad.fit.EM, LaplaceFit, plaplace, qlaplace, rlaplace, rmLaplace, spatial.median, 
        WH.Laplace)
 
@@ -35,6 +35,7 @@ S3method(plot, lad)
 S3method(predict, lad)
 S3method(print, lad)
 S3method(print, LaplaceFit)
+S3method(print, L1ccc)
 S3method(print, spatial.median)
 S3method(print, summary.lad)
 S3method(residuals, lad)

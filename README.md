@@ -13,10 +13,10 @@
 
 Latest binaries and sources can be found at the [CRAN package repository](https://cran.r-project.org/package=L1pack):
 
-* [L1pack_0.60.tar.gz](https://cran.r-project.org/src/contrib/L1pack_0.60.tar.gz) - Package sources
-* [L1pack_0.60.zip](https://cran.r-project.org/bin/windows/contrib/4.5/L1pack_0.60.zip) - Windows binaries (R-release)
-* [L1pack_0.60.tgz](https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/L1pack_0.60.tgz) - MacOS binaries (R-release, arm64)
-* [L1pack_0.60.tgz](https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.5/L1pack_0.60.tgz) - MacOS binaries (R-release, x86_64)
+* [L1pack_0.62.tar.gz](https://cran.r-project.org/src/contrib/L1pack_0.62.tar.gz) - Package sources
+* [L1pack_0.62.zip](https://cran.r-project.org/bin/windows/contrib/4.5/L1pack_0.62.zip) - Windows binaries (R-release)
+* [L1pack_0.62.tgz](https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/L1pack_0.62.tgz) - MacOS binaries (R-release, arm64)
+* [L1pack_0.62.tgz](https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.5/L1pack_0.62.tgz) - MacOS binaries (R-release, x86_64)
 
 ## Reference Manual
 
@@ -49,6 +49,7 @@ The methods implemented in `L1pack` include:
 -   [Barrodale and Roberts (1974)](https://doi.org/10.1145/355616.361024) procedure for L1 estimation in linear regression.
 -   EM algorithm for LAD estimation in linear regression ([Phillips, 2002](https://doi.org/10.1023/A:1020759012226)).
 -   Estimation of center and Scatter matrix using the multivariate Laplace distribution.
+-   Computation of L1 concordance correlation coefficient ([Vallejos et al., 2025](https://doi.org/10.48550/arXiv.2507.07913))
 -   Density, distribution function, quantile function and random number generation for univariate Laplace distribution.
 -   Density and random number generation for the multivariate Laplace distribution ([Gomez et al., 1998](https://doi.org/10.1080/03610929808832115)).
 -   Computation of the generalized spatial median estimator as defined by [Rao (1988)](https://doi.org/10.1007/0-8176-4487-3_7)
@@ -62,16 +63,16 @@ citation("L1pack")
  
 To cite package L1pack in publications use:
  
-  Osorio, F., Wolodzko, T. (2025). Routines for L1 estimation. R
-  package version 0.60. URL: https://github.com/faosorios/L1pack
+  Osorio, F., Wolodzko, T. (2026). Routines for L1 estimation. R
+  package version 0.62. URL: https://github.com/faosorios/L1pack
  
 A BibTeX entry for LaTeX users is
  
   @Manual{,
    title = {Routines for L1 estimation},
    author = {F. Osorio and T. Wolodzko},
-   year = {2025},
-   note = {R package version 0.60},
+   year = {2026},
+   note = {R package version 0.62},
    url = {https://github.com/faosorios/L1pack},
   }
 ```

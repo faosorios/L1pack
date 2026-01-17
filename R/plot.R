@@ -1,4 +1,4 @@
-## ID: plot.R, last updated 2025-03-17, F.Osorio
+## ID: plot.R, last updated 2026-01-02, F.Osorio
 
 envelope.Laplace <- function(object, reps = 50, conf = 0.95, plot.it = TRUE)
 { ## simulated envelope
@@ -35,5 +35,9 @@ envelope.Laplace <- function(object, reps = 50, conf = 0.95, plot.it = TRUE)
     par(new = TRUE)
     qqnorm(band[,2], axes = F, main = "", xlab = "", ylab = "", ylim = ylim, type = "l", lwd = 2, col = "red")
   }
-  invisible(list(transformed = z, envelope = band))
+
+  output <- list(transformed = z)
+  if (plot.it)
+    output$envelope <- band
+  invisible(output)
 }

@@ -67,7 +67,7 @@ function(x, data, subset, na.action, tol = 1e-6, maxiter = 200)
               logLik = fit$logLik,
               numIter = fit$maxiter,
               weights = fit$weights,
-              distances = fit$distances,
+              distances = sqrt(fit$distances),
               speed = speed,
               converged = FALSE)
   names(out$center) <- znames

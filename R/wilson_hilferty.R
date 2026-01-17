@@ -9,7 +9,7 @@ WH.Laplace <- function(x, center, Scatter)
     n <- x$dims[1]
     p <- x$dims[2]
   } else {
-    distances <- Mahalanobis(x, center, cov = Scatter, inverted = FALSE)
+    distances <- sqrt(Mahalanobis(x, center, cov = Scatter, inverted = FALSE))
     n <- nrow(x)
     p <- ncol(x)
     if (p != nrow(Scatter))

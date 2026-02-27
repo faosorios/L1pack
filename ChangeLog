@@ -1,3 +1,8 @@
+0.62-4 (Feb 18, 2026)
+ * Estimation of the variance of the median of residuals required for the evaluation 
+   of the standard error of LAD coefficients using the method of McKean and Schrader 
+   (1987) was included.
+
 0.62 (Jan 14, 2026 - Today is my daughter's birthday)
  * Minor corrections have been made to the 'LaplaceFit' and 'envelope.Laplace'
    functions.

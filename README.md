@@ -73,7 +73,7 @@ citation("L1pack")
 To cite package L1pack in publications use:
  
   Osorio, F., Wolodzko, T. (2026). Routines for L1 estimation. R
-  package version 0.62. URL: https://github.com/faosorios/L1pack
+  package version 0.62-4. URL: https://github.com/faosorios/L1pack
  
 A BibTeX entry for LaTeX users is
  
@@ -81,7 +81,7 @@ A BibTeX entry for LaTeX users is
    title = {Routines for L1 estimation},
    author = {F. Osorio and T. Wolodzko},
    year = {2026},
-   note = {R package version 0.62},
+   note = {R package version 0.62-4},
    url = {https://github.com/faosorios/L1pack},
   }
 ```

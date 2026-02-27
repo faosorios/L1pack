@@ -4,6 +4,8 @@
 
 <!-- badges: start -->
 [![CRAN status](http://www.r-pkg.org/badges/version/L1pack)](https://cran.r-project.org/package=L1pack)
+![CRAN/METACRAN](https://img.shields.io/cran/l/L1pack?color=informational)
+![GitHub last commit](https://img.shields.io/github/last-commit/faosorios/L1pack)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/L1pack)](https://cran.r-project.org/package=L1pack)
 <!-- badges: end -->
 

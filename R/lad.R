@@ -1,4 +1,4 @@
-## ID: lad.R, last updated 2024-01-16, F.Osorio and T.Wolodzko
+## ID: lad.R, last updated 2026-01-26, F.Osorio and T.Wolodzko
 
 lad <-
 function(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 200, 
@@ -54,7 +54,7 @@ function(x, y, method = "BR", tol = 1e-7, maxiter = 200)
 }
 
 lad.fit.BR <-
-function(x, y, tol = 1e-7)
+function(x, y, tol = 1e-7, level = 0.95)
 {
   if (is.matrix(y))
     stop("'lad.fit.BR' does not support multiple responses.")
@@ -70,6 +70,9 @@ function(x, y, tol = 1e-7)
 	p <- dx[2]
   if (n <= p)
     stop("More variables than observations.")
+  ok <- (level > 0) && (level < 1)
+  if (!ok)
+    stop("'level' for nuisance parameter estimation be in [0,1].")
 
   # call fitter
   converged <- TRUE
@@ -104,10 +107,23 @@ function(x, y, tol = 1e-7)
   basic <- (1:n)[z$residuals == 0.0]
   R <- chol(crossprod(x))
 
+  # estimating the asymptotic variance of the sample median from the 
+  # distribution of the random disturbances
+  nonzero <- z$residuals[-basic]
+  m <- length(nonzero)
+  alpha <- 1 - level
+  lambda <- .C("nuisance_vcov",
+               resid = as.double(nonzero),
+               m = as.integer(m),
+               alpha = as.double(alpha),
+               job = as.integer(1),
+               lambda = as.double(0))$lambda
+
   # creating the output object
   out <- list(coefficients = z$coef, scale = z$scale, residuals = z$residuals,
               fitted.values = z$fitted, SAD = z$sad, logLik = z$logLik, basic = basic,
-              dims = dx, R = R, iterations = z$iter, speed = speed, converged = converged)
+              dims = dx, R = R, lambda = lambda, iterations = z$iter, speed = speed, 
+              converged = converged)
   if (length(msg))
     out$message <- msg
   names(out$coefficients) <- xnames
@@ -119,7 +135,7 @@ function(x, y, tol = 1e-7)
 }
 
 lad.fit.EM <-
-function(x, y, tol = 1e-7, maxiter = 200)
+function(x, y, tol = 1e-7, maxiter = 200, level = 0.95)
 {
   if (is.matrix(y))
     stop("'lad.fit.EM' does not support multiple responses.")
@@ -135,6 +151,9 @@ function(x, y, tol = 1e-7, maxiter = 200)
 	p <- dx[2]
   if (n <= p)
     stop("More variables than observations.")
+  ok <- (level > 0) && (level < 1)
+  if (!ok)
+    stop("'level' for nuisance parameter estimation be in [0,1].")
 
   # set control values
   control <- c(maxiter, tol, 0)
@@ -178,11 +197,28 @@ function(x, y, tol = 1e-7, maxiter = 200)
     msg <- "method was unable to determine basic observations"
   }
 
+  # estimating the asymptotic variance of the sample median from the 
+  # distribution of the random disturbances
+  if (length(basic) == 0) {
+    nonzero <- z$residuals
+    m <- n
+  } else {
+    nonzero <- z$residuals[-basic]
+    m <- length(nonzero)
+  }
+  alpha <- 1 - level
+  lambda <- .C("nuisance_vcov",
+               resid = as.double(nonzero),
+               m = as.integer(m),
+               alpha = as.double(alpha),
+               job = as.integer(1),
+               lambda = as.double(0))$lambda
+
   # creating the output object
   out <- list(coefficients = z$coef, scale = z$scale, residuals = z$residuals,
               fitted.values = z$fitted, SAD = z$sad, logLik = z$logLik,
-              weights = weights, basic = basic, dims = dx, R = R, iterations = z$iter,
-              speed = speed, converged = converged)
+              weights = weights, basic = basic, dims = dx, R = R, lambda = lambda, 
+              iterations = z$iter, speed = speed, converged = converged)
   if (length(msg))
     out$message <- msg
   names(out$coefficients) <- xnames
@@ -376,25 +412,35 @@ confint.lad <- function(object, parm, level = 0.95, ...)
   pct <- paste(round(100 * a, 1), "%")
   ci <- array(NA, dim = c(length(parm), 2),
               dimnames = list(pnames[parm], pct))
-  se <- sqrt(diag(vcov(object)))[parm]
+  se <- sqrt(diag(vcov(object, level)))[parm]
   qz <- qnorm(a)
   ci[] <- cf[parm] + se %o% qz
   ci
 }
 
-vcov.lad <- function(object, ...)
+vcov.lad <- function(object, level = 0.95, ...)
 {
-  scale <- object$scale
-  2.0 * scale^2 * chol2inv(object$R)
+  resid <- object$residuals
+  basic <- object$basic
+  nonzero <- resid[-basic]
+  m <- length(nonzero)
+  alpha <- 1 - level
+  lambda <- .C("nuisance_vcov",
+               resid = as.double(nonzero),
+               m = as.integer(m),
+               alpha = as.double(alpha),
+               job = as.integer(1),
+               lambda = as.double(0))$lambda
+  lambda^2 * chol2inv(object$R)
 }
 
 summary.lad <-
-function (object, ...)
+function(object, ...)
 {
   z <- object
   p <- z$dims[2]
   cov.unscaled <- chol2inv(z$R)
-  se <- z$scale * sqrt(2.0 * diag(cov.unscaled))
+  se <- z$lambda * sqrt(diag(cov.unscaled))
   est <- z$coefficients
   zval <- est / se
   ans <- z[c("call", "terms")]

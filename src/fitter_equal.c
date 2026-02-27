@@ -14,7 +14,7 @@ fitter_EQUAL(double *x, int *nobs, int *vars, double *center, double *lambda, do
   double *distances, double *weights, double *logLik, double *tolerance, int *maxiter)
 { /* restricted estimation for the multivariate Laplace distribution under homogeneity 
    * of means, described in Appendix of Vallejos, Osorio & Ferrer (2025) */
-  int errcode = 0, iter = 0, job = 0, n = *nobs, p = *vars, maxit = *maxiter, npars;
+  int errcode = 0, iter = 0, job = 0, n = *nobs, p = *vars, maxit = *maxiter;
   double conv, fnc = *logLik, newfnc, *mean, *Root, tol = *tolerance;
 
   mean = (double *) R_Calloc(p, double);

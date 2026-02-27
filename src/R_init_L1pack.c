@@ -1,4 +1,4 @@
-/* ID: R_init_L1pack.c, last updated 2025-06-23, F.Osorio */
+/* ID: R_init_L1pack.c, last updated 2026-01-25, F.Osorio */
 
 #include "base.h"
 #include "lad.h"
@@ -11,6 +11,7 @@
 extern void F77_NAME(l1)(int *, int *, int *, int *, double *, double *, double *, double *, double *, int *);
 extern void lad_BR(double *, double *, int *, int *, double *, double *, double *, double *, double *, double *, double *, int *, int *, int *);
 extern void lad_EM(double *, double *, int *, int *, double *, double *, double *, double *, double *, double *, double *, double *, int *);
+extern void nuisance_vcov(double *, int *, double *, int *, double *);
 
 /* multivariate Laplace estimation */
 extern void Laplace_fitter(double *, int *, int *, double *, double *, double *, double *, double *, double *, int *);
@@ -43,6 +44,7 @@ static const R_CMethodDef CEntries[]  = {
   CALLDEF(r_laplace,                6),
   CALLDEF(lad_BR,                  14),
   CALLDEF(lad_EM,                  13),
+  CALLDEF(nuisance_vcov,            5),
   CALLDEF(Laplace_fitter,          10),
   CALLDEF(fitter_EQUAL,            11),
   CALLDEF(pdf_mlaplace,             6),

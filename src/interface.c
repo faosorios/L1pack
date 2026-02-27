@@ -1,4 +1,4 @@
-/* ID: interface.c, last updated 2024-05-16, F.Osorio */
+/* ID: interface.c, last updated 2026-01-25, F.Osorio */
 
 #include "base.h"
 #include "interface.h"
@@ -152,7 +152,17 @@ backsolve(double *r, int ldr, int n, double *b, int ldb, int nrhs, int *info)
 }
 
 /* ========================================================================== *
- * (multivariate) descriptive statistics 
+ * univariate statistics
+ * ========================================================================== */
+
+double 
+sample_quantile(double *x, int n, int k)
+{ /* obtain the k-th sample quantile of vector 'x' */
+  return FM_find_quantile(x, n, k);
+}
+
+/* ========================================================================== *
+ * multivariate descriptive statistics 
  * ========================================================================== */
 
 void

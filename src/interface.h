@@ -1,4 +1,4 @@
-/* ID: interface.h, last updated 2024-05-16, F.Osorio */
+/* ID: interface.h, last updated 2026-01-25, F.Osorio */
 
 #ifndef L1PACK_INTERFACE_H
 #define L1PACK_INTERFACE_H
@@ -36,6 +36,7 @@ extern void backsolve(double *, int, int, double *, int, int, int *);
 extern void center_and_Scatter(double *, int, int, double *, double *, double *);
 extern void center_online(double *, int, int, double *, double *);
 extern void mediancenter(double *, int, int, double *, int *);
+extern double sample_quantile(double *, int, int);
 
 /* Mahalanobis distance */
 extern double mahalanobis(double *, int, double *, double *);

@@ -11,6 +11,13 @@
 
 `L1pack` provides routines to perform L1 estimation in linear regression models, estimation of mean and covariance matrix using the multivariate Laplace distribution, and multivariate random number generation for the Laplace distribution. A basic set of methods for printing the results is also available.
 
+Currently, the [L1pack](https://github.com/faosorios/L1pack) provides support for the following R packages:
+
+[![ConnectednessApproach](https://img.shields.io/badge/Support-ConnectednessApproach-orange)](https://cran.r-project.org/package=ConnectednessApproach)
+[![drugDemand](https://img.shields.io/badge/Support-drugDemand-orange)](https://cran.r-project.org/package=drugDemand)
+[![india](https://img.shields.io/badge/Support-india-orange)](https://cran.r-project.org/package=india)
+[![reverseR](https://img.shields.io/badge/Support-reverseR-orange)](https://cran.r-project.org/package=reverseR)
+
 ## Resources
 
 Latest binaries and sources can be found at the [CRAN package repository](https://cran.r-project.org/package=L1pack):

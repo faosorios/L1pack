@@ -20,6 +20,7 @@
 \source{
   Butler, R.J., McDonald, J.B., Nelson, R.D., and White, S.B. (1990).
   Robust and partially adaptive estimation of regression models.
-  \emph{The Review of Economics and Statistics} \bold{72}, 321-327.  
+  \emph{The Review of Economics and Statistics} \bold{72}, 321-327. 
+  \doi{10.2307/2109722} 
 }
 \keyword{datasets}

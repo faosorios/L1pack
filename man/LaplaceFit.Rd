@@ -34,6 +34,7 @@ LaplaceFit(x, data, subset, na.action, tol = 1e-6, maxiter = 200)
   Yavuz, F.G., Arslan, O. (2018).
   Linear mixed model with Laplace distribution (LLMM).
   \emph{Statistical Papers} \bold{59}, 271-289.
+  \doi{10.1007/s00362-016-0763-x}
 }
 
 \seealso{

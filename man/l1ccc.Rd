@@ -45,18 +45,21 @@ l1ccc(x, data, equal.means = FALSE, boots = TRUE, nsamples = 1000, subset, na.ac
   King, T.S., Chinchilli, V.M. (2001).
   A generalized concordance correlation coefficient for continuous and categorical data.
   \emph{Statistics in Medicine} \bold{20}, 2131-2147.
+  \doi{10.1002/sim.845}
 
   King, T.S., Chinchilli, V.M. (2001).
   Robust estimators of the concordance correlation coefficient.
   \emph{Journal of Biopharmaceutical Statistics} \bold{11}, 83-105.
+  \doi{10.1081/BIP-100107651}
 
   Lin, L. (1989). 
   A concordance correlation coefficient to evaluate reproducibility. 
   \emph{Biometrics} \bold{45}, 255-268.
+  \doi{10.2307/2532051}
 
   Vallejos, R., Osorio, F., Ferrer, C. (2025).
   A new coefficient to measure agreement between two continuous variables.
-  doi: 10.48550/arXiv.2507.07913.
+  \doi{10.48550/arXiv.2507.07913}.
 }
 \examples{
 ## data from Bland and Altman (1986). The Lancet 327, 307-310.

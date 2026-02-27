@@ -58,6 +58,7 @@ rmLaplace(n = 1, center = rep(0, nrow(Scatter)), Scatter = diag(length(center)))
   Gomez, E., Gomez-Villegas, M.A., Marin, J.M. (1998).
   A multivariate generalization of the power exponential family of distributions.
   \emph{Communications in Statistics - Theory and Methods} \bold{27}, 589-600.
+  \doi{10.1080/03610929808832115}
 }
 
 \examples{

@@ -28,10 +28,12 @@ WH.Laplace(x, center, Scatter)
   Osorio, F., Galea, M., Henriquez, C., Arellano-Valle, R. (2023).
   Addressing non-normality in multivariate analysis using the \emph{t}-distribution. 
   \emph{AStA Advances in Statistical Analysis} \bold{107}, 785-813.
+  \doi{10.1007/s10182-022-00468-2}
 
   Terrell, G.R. (2003).
   The Wilson-Hilferty transformation is locally saddlepoint.
   \emph{Biometrika} \bold{90}, 445-453.
+  \doi{10.1093/biomet/90.2.445}
 
   Wilson, E.B., Hilferty, M.M. (1931).
   The distribution of chi-square.

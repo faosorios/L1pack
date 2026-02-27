@@ -51,6 +51,7 @@ spatial.median(x, data, subset, na.action, tol = 1e-6, maxiter = 200)
   In: Balakrishnan, N., Sarabia, J.M., Castillo, E. (Eds) 
   \emph{Advances in Distribution Theory, Order Statistics, and Inference}. 
   Birkhauser Boston, pp. 111-124.
+  \doi{10.1007/0-8176-4487-3_7}
 
   Rao, C.R. (1988). 
   Methodology based on the L1-norm in statistical inference.

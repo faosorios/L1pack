@@ -39,10 +39,12 @@ lad(formula, data, subset, na.action, method = "BR", tol = 1e-7, maxiter = 200,
   Barrodale, I., Roberts, F.D.K. (1974).
   Solution of an overdetermined system of equations in the L1 norm.
   \emph{Communications of the ACM} \bold{17}, 319-320.
+  \doi{10.1145/355616.361024}
 
   Phillips, R.F. (2002).
   Least absolute deviations estimation via the EM algorithm.
   \emph{Statistics and Computing} \bold{12}, 281-285.
+  \doi{10.1023/A:1020759012226}
 }
 \examples{
 fm <- lad(stack.loss ~ ., data = stackloss, method = "BR")

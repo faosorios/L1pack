@@ -28,9 +28,10 @@ envelope.Laplace(object, reps = 50, conf = 0.95, plot.it = TRUE)
   Osorio, F., Galea, M., Henriquez, C., Arellano-Valle, R. (2023). 
   Addressing non-normality in multivariate analysis using the t-distribution. 
   \emph{AStA Advances in Statistical Analysis} \bold{107} 785-813.
+  \doi{10.1007/s10182-022-00468-2}
 
-  Vallejos, R., Osorio, F., Ferrer, C. (2025+).
-  A new coefficient to measure agreement between continuous variables.
-  Working paper.
+  Vallejos, R., Osorio, F., Ferrer, C. (2025).
+  A new coefficient to measure agreement between two continuous variables.
+  \doi{10.48550/arXiv.2507.07913}.
 }
 \keyword{dplot}

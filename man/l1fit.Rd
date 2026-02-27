@@ -36,10 +36,12 @@ l1fit(x, y, intercept = TRUE, tolerance = 1e-07, print.it = TRUE)
   Barrodale, I., Roberts, F.D.K. (1973).
   An improved algorithm for discrete L1 linear approximations.
   \emph{SIAM Journal of Numerical Analysis} \bold{10}, 839-848.
+  \doi{10.1137/0710069}
 
   Barrodale, I., Roberts, F.D.K. (1974).
   Solution of an overdetermined system of equations in the L1 norm.
   \emph{Communications of the ACM} \bold{17}, 319-320.
+  \doi{10.1145/355616.361024}
 
   Bloomfield, P., Steiger, W.L. (1983).
   \emph{Least Absolute Deviations: Theory, Applications, and Algorithms.}

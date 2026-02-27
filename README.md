@@ -22,10 +22,10 @@ Currently, the [L1pack](https://github.com/faosorios/L1pack) provides support fo
 
 Latest binaries and sources can be found at the [CRAN package repository](https://cran.r-project.org/package=L1pack):
 
-* [L1pack_0.62.tar.gz](https://cran.r-project.org/src/contrib/L1pack_0.62.tar.gz) - Package sources
-* [L1pack_0.62.zip](https://cran.r-project.org/bin/windows/contrib/4.5/L1pack_0.62.zip) - Windows binaries (R-release)
-* [L1pack_0.62.tgz](https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/L1pack_0.62.tgz) - MacOS binaries (R-release, arm64)
-* [L1pack_0.62.tgz](https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.5/L1pack_0.62.tgz) - MacOS binaries (R-release, x86_64)
+* [L1pack_0.62-4.tar.gz](https://cran.r-project.org/src/contrib/L1pack_0.62-4.tar.gz) - Package sources
+* [L1pack_0.62-4.zip](https://cran.r-project.org/bin/windows/contrib/4.5/L1pack_0.62-4.zip) - Windows binaries (R-release)
+* [L1pack_0.62-4.tgz](https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/L1pack_0.62-4.tgz) - MacOS binaries (R-release, arm64)
+* [L1pack_0.62-4.tgz](https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.5/L1pack_0.62-4.tgz) - MacOS binaries (R-release, x86_64)
 
 ## Reference Manual
 
